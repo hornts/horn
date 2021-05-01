@@ -23,7 +23,11 @@
       }
     }
   },
-  "projects": {},
+  "projects": {
+    "core": {
+      "tags": ["scope:core", "type:library"]
+    }
+  },
   "workspaceLayout": {
     "appsDir": "packages",
     "libsDir": "packages"
