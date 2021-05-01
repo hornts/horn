@@ -6,6 +6,12 @@
       "sourceRoot": "packages/core/lib",
       "projectType": "library",
       "targets": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/core/**/*.ts"]
+          }
+        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {

@@ -1,0 +1,15 @@
+{
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "eslint.workingDirectories": [
+    {
+      "directory": "./packages/core",
+      "changeProcessCWD": true
+    },
+  ],
+  "files.insertFinalNewline": true,
+}
