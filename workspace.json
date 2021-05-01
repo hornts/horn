@@ -5,8 +5,15 @@
       "root": "packages/core",
       "sourceRoot": "packages/core/lib",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "targets": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "packages/core/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/packages/core"]
+        },
         "build": {
           "builder": "@nrwl/node:package",
           "options": {
