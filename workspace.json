@@ -33,6 +33,39 @@
           "outputs": ["{options.outputPath}"]
         }
       }
+    },
+    "common": {
+      "root": "packages/common",
+      "sourceRoot": "packages/common/lib",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/common/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "packages/common/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/packages/common"]
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packages/common",
+            "tsConfig": "packages/common/tsconfig.lib.json",
+            "packageJson": "packages/common/package.json",
+            "main": "packages/common/lib/index.ts",
+            "assets": ["packages/common/*.md"],
+            "buildableProjectDepsInPackageJsonType": "peerDependencies"
+          },
+          "outputs": ["{options.outputPath}"]
+        }
+      }
     }
   },
   "cli": {

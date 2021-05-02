@@ -26,6 +26,9 @@
   "projects": {
     "core": {
       "tags": ["scope:core", "type:library"]
+    },
+    "common": {
+      "tags": ["scope:common", "type:library"]
     }
   },
   "workspaceLayout": {
