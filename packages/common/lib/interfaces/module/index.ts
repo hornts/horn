@@ -1,1 +1,1 @@
-export { IModule } from './module.interface';
+export { ModuleOptions } from './module-options.interface';

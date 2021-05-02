@@ -1,3 +1,4 @@
+import { Module } from '@hornts/common';
 import { HornApplication, HornFactory } from '@hornts/core';
 import { ExpressAdapter } from '@hornts/http-express';
 import * as request from 'supertest';
@@ -6,6 +7,12 @@ describe('HornFactory', () => {
   let horn: HornApplication<ExpressAdapter>;
 
   beforeAll(() => {
+    @Module({
+      imports: [],
+      controllers: [],
+      providers: [],
+      exports: [],
+    })
     class AppModule {}
 
     horn = HornFactory.create(AppModule, new ExpressAdapter());

@@ -1,15 +1,7 @@
-import { AppConfig } from '../config';
+import { Type } from '@hornts/common';
 
 export class AppContainer {
-  private modules = new Map();
+  constructor(private readonly root: Type<any>) {}
 
-  constructor(private readonly config?: AppConfig) {}
-
-  public addModule(token: string, moduleRef) {
-    if (this.modules.get(token)) {
-      throw new Error('oops');
-    }
-
-    this.modules.set(token, moduleRef);
-  }
+  public instantiateDependency() {}
 }

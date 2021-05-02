@@ -1,7 +1,6 @@
 import 'reflect-metadata';
 
-import { Injectable } from '../../../decorators/core';
-import { Scope } from '../../../interfaces';
+import { Injectable, Scope } from '@hornts/common';
 
 describe('@Injectable', () => {
   it('should create injectable class with no options', () => {
