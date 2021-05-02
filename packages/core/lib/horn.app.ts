@@ -1,12 +1,20 @@
 import { AppContainer } from './container';
 import { HttpAdapter } from './http';
 
-export class Horn {
-  public static create<T extends HttpAdapter>(appModule: any, server: T) {
-    const app = new AppContainer({ server });
+export class HornApplication<T extends HttpAdapter> {
+  private container: AppContainer;
 
-    app.addModule('horn:root', appModule);
+  private _http: T;
 
-    return app;
+  constructor(adapter: T) {
+    this._http = adapter;
+  }
+
+  public listen(port: number) {
+    this._http.listen(port);
+  }
+
+  public get http() {
+    return this._http;
   }
 }
