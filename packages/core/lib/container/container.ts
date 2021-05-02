@@ -5,7 +5,11 @@ export class AppContainer {
 
   constructor(private readonly config?: AppConfig) {}
 
-  public addModule(moduleRef) {
-    this.modules.set('Root', moduleRef);
+  public addModule(token: string, moduleRef) {
+    if (this.modules.get(token)) {
+      throw new Error('oops');
+    }
+
+    this.modules.set(token, moduleRef);
   }
 }

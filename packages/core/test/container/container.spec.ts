@@ -2,14 +2,18 @@ import { Module } from '@hornts/common';
 import { AppContainer } from '@hornts/core';
 
 describe('AppContainer', () => {
+  const horn = new AppContainer();
+
   it('should pass', () => {
-    @Module({
-      controllers: [],
-    })
+    @Module()
     class TestModule {}
 
-    const horn = new AppContainer();
+    horn.addModule('horn:root', TestModule);
+  });
+  it('should pass', () => {
+    @Module()
+    class TestModule {}
 
-    horn.addModule(TestModule);
+    horn.addModule('horn:root', TestModule);
   });
 });

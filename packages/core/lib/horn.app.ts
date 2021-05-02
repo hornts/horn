@@ -4,7 +4,7 @@ export class Horn {
   public static create(appModule) {
     const app = new AppContainer();
 
-    app.addModule(appModule);
+    app.addModule('horn:root', appModule);
 
     return app;
   }
