@@ -16,7 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@hornts/core": ["packages/core/lib/index.ts"]
+      "@hornts/core": ["packages/core/lib/index.ts"],
+      "@hornts/common": ["packages/common/lib/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
