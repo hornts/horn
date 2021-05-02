@@ -1,13 +1,23 @@
 export abstract class ServerAdapter {
   constructor(private readonly server: any) {}
 
-  public abstract get();
+  public async get(...args: any[]) {
+    return this.server.get(args);
+  }
 
-  public abstract post();
+  public async post(...args: any[]) {
+    return this.server.post(args);
+  }
 
-  public abstract delete();
+  public async delete(...args: any[]) {
+    return this.server.delete(args);
+  }
 
-  public abstract put();
+  public async put(...args: any[]) {
+    return this.server.put(args);
+  }
 
-  public abstract listen();
+  public async listen(...args: any[]) {
+    return this.server.listen(args);
+  }
 }
