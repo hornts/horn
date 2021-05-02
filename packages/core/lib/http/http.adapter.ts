@@ -1,4 +1,4 @@
-export abstract class ServerAdapter {
+export abstract class HttpAdapter {
   constructor(private readonly server: any) {}
 
   public async get(...args: any[]) {

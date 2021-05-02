@@ -1,5 +1,5 @@
 import 'reflect-metadata';
 
 export * from './container';
-export * from './servers';
+export * from './http';
 export { Horn } from './horn.app';
