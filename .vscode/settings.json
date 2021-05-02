@@ -10,6 +10,10 @@
       "directory": "./packages/core",
       "changeProcessCWD": true
     },
+    {
+      "directory": "./packages/common",
+      "changeProcessCWD": true
+    },
   ],
   "files.insertFinalNewline": true,
 }
