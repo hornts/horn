@@ -1,5 +1,5 @@
 {
-  "name": "@hornts/server-express",
+  "name": "@hornts/http-express",
   "version": "0.0.1",
   "author": "Alexey Vasyukov",
   "license": "MIT"

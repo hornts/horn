@@ -67,33 +67,33 @@
         }
       }
     },
-    "server-express": {
-      "root": "packages/servers/server-express",
-      "sourceRoot": "packages/servers/server-express/lib",
+    "http-express": {
+      "root": "packages/http/http-express",
+      "sourceRoot": "packages/http/http-express/lib",
       "projectType": "library",
       "targets": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/servers/server-express/**/*.ts"]
+            "lintFilePatterns": ["packages/http/http-express/**/*.ts"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "packages/servers/server-express/jest.config.js",
+            "jestConfig": "packages/servers/http-express/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/packages/servers/server-express"]
+          "outputs": ["coverage/packages/http/http-express"]
         },
         "build": {
           "builder": "@nrwl/node:package",
           "options": {
-            "outputPath": "dist/packages/servers/server-express",
-            "tsConfig": "packages/servers/server-express/tsconfig.lib.json",
-            "packageJson": "packages/servers/server-express/package.json",
-            "main": "packages/servers/server-express/lib/index.ts",
-            "assets": ["packages/servers/server-express/*.md"],
+            "outputPath": "dist/packages/http/http-express",
+            "tsConfig": "packages/http/http-express/tsconfig.lib.json",
+            "packageJson": "packages/http/http-express/package.json",
+            "main": "packages/http/http-express/lib/index.ts",
+            "assets": ["packages/http/http-express/*.md"],
             "buildableProjectDepsInPackageJsonType": "peerDependencies"
           },
           "outputs": ["{options.outputPath}"]

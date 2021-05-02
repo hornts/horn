@@ -30,8 +30,8 @@
     "common": {
       "tags": ["scope:common", "type:library"]
     },
-    "server-express": {
-      "tags": ["scope:server-express", "type:library"]
+    "http-express": {
+      "tags": ["scope:http-express", "type:library"]
     }
   },
   "workspaceLayout": {
