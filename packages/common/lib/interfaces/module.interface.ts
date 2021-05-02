@@ -1,3 +1,3 @@
 export interface IModule {
-  controllers: string[];
+  controllers?: string[];
 }

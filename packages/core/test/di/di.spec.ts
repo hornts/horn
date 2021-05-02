@@ -10,6 +10,8 @@ describe('DI', () => {
       class TestModule {}
 
       const horn = new AppContainer();
+
+      horn.addModule(TestModule);
     });
   });
 });

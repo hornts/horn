@@ -1,5 +1,5 @@
 import { IModule } from '../interfaces';
 
-export function Module(config: IModule): ClassDecorator {
+export function Module(config?: IModule): ClassDecorator {
   return () => {};
 }
