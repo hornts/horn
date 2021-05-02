@@ -8,6 +8,7 @@ export class HornApplication<T extends HttpAdapter> {
 
   constructor(adapter: T) {
     this._http = adapter;
+    this.container = new AppContainer({});
   }
 
   public listen(port: number) {
