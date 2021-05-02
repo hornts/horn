@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'core',
+  displayName: 'common',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {

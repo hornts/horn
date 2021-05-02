@@ -99,6 +99,39 @@
           "outputs": ["{options.outputPath}"]
         }
       }
+    },
+    "http-fastify": {
+      "root": "packages/http/http-fastify",
+      "sourceRoot": "packages/http/http-fastify/lib",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/http/http-fastify/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "packages/servers/http-fastify/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/packages/http/http-fastify"]
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packages/http/http-fastify",
+            "tsConfig": "packages/http/http-fastify/tsconfig.lib.json",
+            "packageJson": "packages/http/http-fastify/package.json",
+            "main": "packages/http/http-fastify/lib/index.ts",
+            "assets": ["packages/http/http-fastify/*.md"],
+            "buildableProjectDepsInPackageJsonType": "peerDependencies"
+          },
+          "outputs": ["{options.outputPath}"]
+        }
+      }
     }
   },
   "cli": {

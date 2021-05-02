@@ -32,6 +32,9 @@
     },
     "http-express": {
       "tags": ["scope:http-express", "type:library"]
+    },
+    "http-fastify": {
+      "tags": ["scope:http-fastify", "type:library"]
     }
   },
   "workspaceLayout": {

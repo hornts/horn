@@ -18,7 +18,8 @@
     "paths": {
       "@hornts/core": ["packages/core/lib/index.ts"],
       "@hornts/common": ["packages/common/lib/index.ts"],
-      "@hornts/http-express": ["packages/http/http-express/lib/index.ts"]
+      "@hornts/http-express": ["packages/http/http-express/lib/index.ts"],
+      "@hornts/http-fastify": ["packages/http/http-fastify/lib/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
