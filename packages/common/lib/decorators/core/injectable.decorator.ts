@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+
 import { InjectableOptions, Scope } from '../../interfaces';
 
 export function Injectable(options: InjectableOptions = {}): ClassDecorator {
