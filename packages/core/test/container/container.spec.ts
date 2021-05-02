@@ -10,6 +10,7 @@ describe('AppContainer', () => {
 
     horn.addModule('horn:root', TestModule);
   });
+
   it('should pass', () => {
     @Module()
     class TestModule {}
