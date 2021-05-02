@@ -1,10 +1,11 @@
 import { AppConfig } from '../config';
 
-/**
- * Root DI Container
- */
 export class AppContainer {
-  private modules;
+  private modules = new Map();
 
   constructor(private readonly config?: AppConfig) {}
+
+  public addModule(moduleRef) {
+    this.modules.set('Root', moduleRef);
+  }
 }

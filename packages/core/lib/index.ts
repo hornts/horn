@@ -1,3 +1,4 @@
 import 'reflect-metadata';
 
-export * from './di';
+export * from './container';
+export { Horn } from './horn.app';
