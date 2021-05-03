@@ -7,11 +7,13 @@ export enum Scope {
 
   /**
    * Transient objects are always different.
+   * @todo
    */
-  TRANSIENT = 'transient',
+  // TRANSIENT = 'transient',
 
   /**
    * Request objects are the same for each request but different across each request.
+   * @todo
    */
-  REQUEST = 'request',
+  // REQUEST = 'request',
 }

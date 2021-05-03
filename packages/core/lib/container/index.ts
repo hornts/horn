@@ -1,1 +1,0 @@
-export { ApplicationContainer } from './container';

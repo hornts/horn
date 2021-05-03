@@ -1,6 +1,6 @@
 import { Type } from '@hornts/common';
 
-import { ApplicationContainer } from './container';
+import { ApplicationContainer } from './di';
 import { HttpAdapter } from './http';
 
 export class HornApplication<T extends HttpAdapter> {
@@ -12,7 +12,7 @@ export class HornApplication<T extends HttpAdapter> {
     this.container = new ApplicationContainer(rootModule);
     this._http = httpAdapter;
 
-    this.container.load();
+    this.container.initialize();
   }
 
   public listen(...args: any[]) {
