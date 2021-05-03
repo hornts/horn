@@ -1,6 +1,7 @@
 import * as pino from 'pino';
 
 export interface LoggerService {
+  child(...args: any[]): any;
   fatal(...args: any[]);
   error(...args: any[]);
   warn(...args: any[]);
@@ -14,6 +15,10 @@ export class Logger implements LoggerService {
 
   constructor(options?: pino.LoggerOptions) {
     this.pino = pino(options);
+  }
+
+  public child(options: pino.Bindings): pino.Logger {
+    return this.pino.child(options);
   }
 
   public fatal(message: string) {

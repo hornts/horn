@@ -19,5 +19,7 @@ export class AppContainer {
     this.injector = new Injector();
   }
 
-  public load() {}
+  public load() {
+    this.logger.info('Loading dependency tree...');
+  }
 }
