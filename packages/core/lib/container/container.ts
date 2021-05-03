@@ -1,5 +1,13 @@
 import { Type } from '@hornts/common';
 
+import { Injector } from './injector';
+
 export class AppContainer {
-  constructor(private readonly rootModule: Type<any>) {}
+  private readonly injector: Injector;
+
+  constructor(private readonly rootModule: Type<any>) {
+    this.injector = new Injector();
+  }
+
+  public load() {}
 }

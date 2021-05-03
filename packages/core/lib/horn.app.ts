@@ -11,6 +11,8 @@ export class HornApplication<T extends HttpAdapter> {
   constructor(rootModule: Type<any>, httpAdapter: T) {
     this.container = new AppContainer(rootModule);
     this._http = httpAdapter;
+
+    this.container.load();
   }
 
   public listen(...args: any[]) {
@@ -20,7 +22,7 @@ export class HornApplication<T extends HttpAdapter> {
   /**
    * Returns http server instance
    */
-  public get http() {
-    return this._http.server;
+  public getHTTPInstance() {
+    return this._http.getInstance();
   }
 }
