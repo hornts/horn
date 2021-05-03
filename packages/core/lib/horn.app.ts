@@ -8,16 +8,19 @@ export class HornApplication<T extends HttpAdapter> {
 
   private _http: T;
 
-  constructor(root: Type<any>, adapter: T) {
-    this.container = new AppContainer(root);
-    this._http = adapter;
+  constructor(rootModule: Type<any>, httpAdapter: T) {
+    this.container = new AppContainer(rootModule);
+    this._http = httpAdapter;
   }
 
-  public listen(port: number) {
-    this._http.listen(port);
+  public listen(...args: any[]) {
+    this._http.listen(...args);
   }
 
+  /**
+   * Returns http server instance
+   */
   public get http() {
-    return this._http;
+    return this._http.server;
   }
 }
