@@ -1,7 +1,7 @@
 export abstract class HttpAdapter {
   constructor(private readonly _instance: any) {}
 
-  public getInstance() {
+  public getInstance(): any {
     return this._instance;
   }
 

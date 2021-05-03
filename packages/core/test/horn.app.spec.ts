@@ -6,7 +6,7 @@ import * as request from 'supertest';
 describe('HornFactory', () => {
   let horn: HornApplication<ExpressAdapter>;
 
-  beforeAll(() => {
+  beforeAll(async () => {
     @Module({
       imports: [],
       controllers: [],
@@ -15,7 +15,7 @@ describe('HornFactory', () => {
     })
     class AppModule {}
 
-    horn = HornFactory.create(AppModule, new ExpressAdapter());
+    horn = await HornFactory.create(AppModule, new ExpressAdapter());
 
     horn.listen(8080);
   });
