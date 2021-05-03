@@ -1,11 +1,9 @@
-import { Logger, Type } from '@hornts/common';
+import { Logger, MODULE_OPTIONS_METADATA, ModuleOptions, Type } from '@hornts/common';
 
-import { Injector } from './injector';
-
-export class AppContainer {
+export class ApplicationContainer {
   private readonly logger: Logger;
 
-  private readonly injector: Injector;
+  private readonly modules = new Map<string, any>();
 
   constructor(private readonly rootModule: Type<any>) {
     this.logger = new Logger({
@@ -15,11 +13,13 @@ export class AppContainer {
         ignore: 'pid,hostname,time',
       },
     });
-
-    this.injector = new Injector();
   }
 
   public load() {
     this.logger.info('Loading dependency tree...');
+  }
+
+  private getModuleOptions<T>(constructor: Type<T>): ModuleOptions {
+    return Reflect.getOwnMetadata(MODULE_OPTIONS_METADATA, constructor);
   }
 }

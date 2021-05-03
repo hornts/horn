@@ -1,15 +1,15 @@
 import { Type } from '@hornts/common';
 
-import { AppContainer } from './container';
+import { ApplicationContainer } from './container';
 import { HttpAdapter } from './http';
 
 export class HornApplication<T extends HttpAdapter> {
-  private container: AppContainer;
+  private container: ApplicationContainer;
 
   private _http: T;
 
   constructor(rootModule: Type<any>, httpAdapter: T) {
-    this.container = new AppContainer(rootModule);
+    this.container = new ApplicationContainer(rootModule);
     this._http = httpAdapter;
 
     this.container.load();

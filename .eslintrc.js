@@ -39,6 +39,7 @@ module.exports = {
     'no-console': 'error',
     'no-underscore-dangle': 'off',
     'no-else-return': 'off',
+    'no-plusplus': ["error", { "allowForLoopAfterthoughts": true }],
     'max-classes-per-file': 'off',
     'no-useless-constructor': 'off',
     'class-methods-use-this': 'off',
