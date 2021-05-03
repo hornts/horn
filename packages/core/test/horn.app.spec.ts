@@ -21,6 +21,6 @@ describe('HornFactory', () => {
   });
 
   it('should init horn app with express', (done) => {
-    request(horn.getHTTPInstance()).get('/').expect(404, done);
+    request(horn.getHttpInstance()).get('/').expect(404, done);
   });
 });

@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 
+import { INJECTABLE_OPTIONS_METADATA } from '../../constants';
 import { InjectableOptions, Scope } from '../../interfaces';
 
 export function Injectable(options: InjectableOptions = {}): ClassDecorator {
@@ -9,6 +10,6 @@ export function Injectable(options: InjectableOptions = {}): ClassDecorator {
   }
 
   return (target: any) => {
-    Reflect.defineMetadata('horn:injectable', options, target);
+    Reflect.defineMetadata(INJECTABLE_OPTIONS_METADATA, options, target);
   };
 }

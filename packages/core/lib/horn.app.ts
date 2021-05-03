@@ -22,7 +22,7 @@ export class HornApplication<T extends HttpAdapter> {
   /**
    * Returns http server instance
    */
-  public getHTTPInstance() {
+  public getHttpInstance() {
     return this._http.getInstance();
   }
 }
