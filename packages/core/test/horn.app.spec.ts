@@ -7,15 +7,10 @@ describe('HornFactory', () => {
   let horn: HornApplication<ExpressAdapter>;
 
   beforeAll(async () => {
-    @Module({
-      imports: [],
-      controllers: [],
-      injectables: [],
-      exports: [],
-    })
+    @Module()
     class AppModule {}
 
-    horn = await HornFactory.create(AppModule, new ExpressAdapter());
+    horn = await HornFactory.create(AppModule, new ExpressAdapter(), { logger: false });
 
     horn.listen(8080);
   });

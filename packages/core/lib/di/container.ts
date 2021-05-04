@@ -1,13 +1,7 @@
-import {
-  INJECTABLE_OPTIONS_METADATA,
-  InjectableOptions,
-  Logger,
-  MODULE_OPTIONS_METADATA,
-  ModuleOptions,
-  Type,
-} from '@hornts/common';
+import { Logger, ModuleOptions, Type } from '@hornts/common';
 import { DepGraph } from 'dependency-graph';
 
+import { Reflection } from './reflection';
 import { Registry } from './registry';
 
 export class ApplicationContainer {
@@ -35,35 +29,15 @@ export class ApplicationContainer {
   private load() {
     this.logger?.info('Loading dependency graph...');
 
-    const rootOptions = this.getModuleOptions(this.rootModule);
+    // const rootOptions = Reflection.getModuleOptions(this.rootModule);
 
-    this.loadInjectables(rootOptions);
+    // this.loadInjectables(rootOptions);
   }
 
-  private loadInjectables(options: ModuleOptions) {
-    for (let i = 0; i < options.injectables.length; i++) {
-      const paramTypes = this.getParamTypes(options.injectables[i]);
-      console.log('paramTypes: ', paramTypes);
-    }
-  }
-
-  private getModuleOptions<T>(constructor: Type<T>): ModuleOptions {
-    const meta = Reflect.getOwnMetadata(MODULE_OPTIONS_METADATA, constructor);
-
-    return {
-      imports: [],
-      controllers: [],
-      injectables: [],
-      exports: [],
-      ...meta,
-    };
-  }
-
-  private getInjectableOptions<T>(constructor: Type<T>): InjectableOptions {
-    return Reflect.getOwnMetadata(INJECTABLE_OPTIONS_METADATA, constructor);
-  }
-
-  private getParamTypes<T>(constructor: Type<T>): undefined | any[] {
-    return Reflect.getOwnMetadata('design:paramtypes', constructor);
-  }
+  // private loadInjectables(options: ModuleOptions) {
+  //   for (let i = 0; i < options.injectables.length; i++) {
+  //     const paramTypes = Reflection.getParamTypes(options.injectables[i]);
+  //     console.log('paramTypes: ', paramTypes);
+  //   }
+  // }
 }
