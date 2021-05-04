@@ -15,6 +15,17 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
+            "codeCoverage": true,
+            "coverageReporters": ["text"],
+            "jestConfig": "packages/core/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "coverage": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "codeCoverage": true,
+            "coverageReporters": ["text", "html"],
             "jestConfig": "packages/core/jest.config.js",
             "passWithNoTests": true
           },
@@ -48,6 +59,17 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
+            "codeCoverage": true,
+            "coverageReporters": ["text"],
+            "jestConfig": "packages/common/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "coverage": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "codeCoverage": true,
+            "coverageReporters": ["text", "html"],
             "jestConfig": "packages/common/jest.config.js",
             "passWithNoTests": true
           },
@@ -81,7 +103,18 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "packages/servers/http-express/jest.config.js",
+            "codeCoverage": true,
+            "coverageReporters": ["text"],
+            "jestConfig": "packages/http/http-express/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "coverage": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "codeCoverage": true,
+            "coverageReporters": ["text", "html"],
+            "jestConfig": "packages/http/http-express/jest.config.js",
             "passWithNoTests": true
           },
           "outputs": ["coverage/packages/http/http-express"]
@@ -114,7 +147,18 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "packages/servers/http-fastify/jest.config.js",
+            "codeCoverage": true,
+            "coverageReporters": ["text"],
+            "jestConfig": "packages/http/http-fastify/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "coverage": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "codeCoverage": true,
+            "coverageReporters": ["text", "html"],
+            "jestConfig": "packages/http/http-fastify/jest.config.js",
             "passWithNoTests": true
           },
           "outputs": ["coverage/packages/http/http-fastify"]
