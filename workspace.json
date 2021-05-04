@@ -25,7 +25,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "codeCoverage": true,
-            "coverageReporters": ["text", "html"],
+            "coverageReporters": ["json-summary", "text", "html"],
             "jestConfig": "packages/core/jest.config.js",
             "passWithNoTests": true
           },

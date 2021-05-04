@@ -1,0 +1,38 @@
+# name: coverage
+
+# on:
+#   push:
+#     branches: [ master ]
+#   pull_request:
+#     branches: [ master ]
+
+# jobs:
+#   build:
+
+#     runs-on: [ubuntu-latest, macos-latest]
+
+#     strategy:
+#       matrix:
+#         node-version: [12.x, 14.x, 15.x, 16.x]
+
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Use Node.js ${{ matrix.node-version }}
+#       uses: actions/setup-node@v2
+#       with:
+#         node-version: ${{ matrix.node-version }}
+#     - run: npm ci
+#     - run: npm run test:all:cov
+#     - run: npm i make-coverage-badge -g
+
+#     - name: Upload core coverage
+#       uses: actions/upload-artifact@v2
+#       with:
+#         name: core.coverage.svg
+#         path: core.coverage.svg
+
+#     - name: Upload common coverage
+#       uses: actions/upload-artifact@v2
+#       with:
+#         name: common.coverage.svg
+#         path: common.coverage.svg
