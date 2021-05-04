@@ -1,5 +1,5 @@
 /**
- * Represents instances registry for DI container.
+ * Registry for DI container instances.
  */
 export class Registry {
   private instances = new Map<symbol, any>();

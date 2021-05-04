@@ -10,7 +10,7 @@ describe('HornFactory', () => {
     @Module({
       imports: [],
       controllers: [],
-      providers: [],
+      injectables: [],
       exports: [],
     })
     class AppModule {}

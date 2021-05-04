@@ -11,21 +11,11 @@ import { DepGraph } from 'dependency-graph';
 import { Registry } from './registry';
 
 export class ApplicationContainer {
-  private readonly logger: Logger;
-
   private graph: DepGraph<Type<any>>;
 
   private readonly registry: Registry;
 
-  constructor(private readonly rootModule: Type<any>) {
-    this.logger = new Logger({
-      name: 'Horn',
-      prettyPrint: {
-        colorize: true,
-        ignore: 'pid,hostname,time',
-      },
-    });
-
+  constructor(private readonly rootModule: Type<any>, private readonly logger?: Logger) {
     this.registry = new Registry();
     this.graph = new DepGraph();
   }
@@ -34,14 +24,16 @@ export class ApplicationContainer {
     this.load();
 
     this.instantiateDependencies();
+
+    this.logger?.info('Application container started.');
   }
 
   private instantiateDependencies() {
-    this.logger.info('Instantiating dependencies...');
+    this.logger?.info('Instantiating dependencies...');
   }
 
   private load() {
-    this.logger.info('Loading dependency graph...');
+    this.logger?.info('Loading dependency graph...');
 
     const rootOptions = this.getModuleOptions(this.rootModule);
 
