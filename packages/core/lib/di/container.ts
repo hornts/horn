@@ -6,11 +6,14 @@ import {
   ModuleOptions,
   Type,
 } from '@hornts/common';
+import { DepGraph } from 'dependency-graph';
 
 import { Registry } from './registry';
 
 export class ApplicationContainer {
   private readonly logger: Logger;
+
+  private graph: DepGraph<Type<any>>;
 
   private readonly registry: Registry;
 
@@ -24,6 +27,7 @@ export class ApplicationContainer {
     });
 
     this.registry = new Registry();
+    this.graph = new DepGraph();
   }
 
   public initialize() {
@@ -37,16 +41,16 @@ export class ApplicationContainer {
   }
 
   private load() {
-    this.logger.info('Loading dependency tree...');
+    this.logger.info('Loading dependency graph...');
 
     const rootOptions = this.getModuleOptions(this.rootModule);
 
-    this.loadProviders(rootOptions);
+    this.loadInjectables(rootOptions);
   }
 
-  private loadProviders(options: ModuleOptions) {
-    for (let i = 0; i < options.providers.length; i++) {
-      const paramTypes = this.getParamTypes(options.providers[i]);
+  private loadInjectables(options: ModuleOptions) {
+    for (let i = 0; i < options.injectables.length; i++) {
+      const paramTypes = this.getParamTypes(options.injectables[i]);
       console.log('paramTypes: ', paramTypes);
     }
   }
@@ -57,7 +61,7 @@ export class ApplicationContainer {
     return {
       imports: [],
       controllers: [],
-      providers: [],
+      injectables: [],
       exports: [],
       ...meta,
     };

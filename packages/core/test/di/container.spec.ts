@@ -15,7 +15,7 @@ describe('ApplicationContainer', () => {
   }
 
   @Module({
-    providers: [ServiceA],
+    injectables: [ServiceA],
   })
   class ModuleA {}
 
