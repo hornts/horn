@@ -25,12 +25,15 @@ export class HornApplication<T extends HttpAdapter> {
     this._container.initialize();
   }
 
+  /**
+   * Start a server listening for connections.
+   */
   public listen(...args: any[]) {
     this._http.listen(...args);
   }
 
   /**
-   * Returns http server instance
+   * Returns http server instance.
    */
   public getHttpInstance(): any {
     return this._http.getInstance();
