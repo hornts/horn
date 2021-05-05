@@ -23,7 +23,7 @@ export class ApplicationContainer {
     this.instantiateDependencies();
 
     this.logger?.info('Application container started.');
-    console.log('test');
+
     console.log(this.graph.overallOrder().join(','));
   }
 
