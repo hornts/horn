@@ -34,6 +34,7 @@
   "private": true,
   "devDependencies": {
     "@nrwl/cli": "12.1.1",
+    "@nrwl/eslint-plugin-nx": "^12.1.1",
     "@nrwl/jest": "12.1.1",
     "@nrwl/node": "12.1.1",
     "@nrwl/tao": "12.1.1",

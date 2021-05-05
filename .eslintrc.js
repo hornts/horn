@@ -8,7 +8,8 @@ module.exports = {
   plugins: [
     '@typescript-eslint/eslint-plugin',
     "simple-import-sort",
-    'prettier'
+    'prettier',
+    '@nrwl/nx',
   ],
   extends: [
     'airbnb-base',
@@ -23,6 +24,29 @@ module.exports = {
     jest: true,
   },
   rules: {
+    "@nrwl/nx/enforce-module-boundaries": [
+      "error",
+      {
+        "enforceBuildableLibDependency": true,
+        "allow": [],
+        "depConstraints": [
+          {
+            "sourceTag": "type:plugin",
+            "onlyDependOnLibsWithTags": [
+              "type:library",
+              "type:plugin"
+            ]
+          },
+          {
+            "sourceTag": "type:library",
+            "onlyDependOnLibsWithTags": [
+              "type:library",
+            ]
+          },
+        ]
+      }
+    ],
+
     'prettier/prettier': ['error', {
       printWidth: 100,
       singleQuote: true,

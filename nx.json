@@ -31,10 +31,10 @@
       "tags": ["scope:common", "type:library"]
     },
     "http-express": {
-      "tags": ["scope:http-express", "type:library"]
+      "tags": ["scope:http-express", "type:plugin"]
     },
     "http-fastify": {
-      "tags": ["scope:http-fastify", "type:library"]
+      "tags": ["scope:http-fastify", "type:plugin"]
     }
   },
   "workspaceLayout": {
