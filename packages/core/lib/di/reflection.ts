@@ -6,6 +6,9 @@ import {
   Type,
 } from '@hornts/common';
 
+/**
+ * Sugar over Reflect API
+ */
 export class Reflection {
   public static getModuleOptions<T>(constructor: Type<T>): ModuleOptions {
     const meta = Reflect.getOwnMetadata(MODULE_OPTIONS_METADATA, constructor);

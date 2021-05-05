@@ -4,6 +4,9 @@ import { DepGraph } from 'dependency-graph';
 import { Reflection } from './reflection';
 import { Registry } from './registry';
 
+/**
+ * Application DI container.
+ */
 export class ApplicationContainer {
   private graph: DepGraph<Type<any>>;
 
@@ -15,29 +18,33 @@ export class ApplicationContainer {
   }
 
   public initialize() {
-    this.load();
+    this.loadDependencies(this.rootModule);
 
     this.instantiateDependencies();
 
     this.logger?.info('Application container started.');
+
+    console.log(this.graph.overallOrder().join(','));
   }
 
   private instantiateDependencies() {
     this.logger?.info('Instantiating dependencies...');
   }
 
-  private load() {
+  private loadDependencies(ref: Type<any>) {
     this.logger?.info('Loading dependency graph...');
 
-    // const rootOptions = Reflection.getModuleOptions(this.rootModule);
+    const meta = Reflection.getModuleOptions(ref);
 
-    // this.loadInjectables(rootOptions);
+    this.graph.addNode(`module:${ref.name}`, ref);
+
+    this.loadInjectables(meta);
   }
 
-  // private loadInjectables(options: ModuleOptions) {
-  //   for (let i = 0; i < options.injectables.length; i++) {
-  //     const paramTypes = Reflection.getParamTypes(options.injectables[i]);
-  //     console.log('paramTypes: ', paramTypes);
-  //   }
-  // }
+  private loadInjectables(options: ModuleOptions) {
+    for (let i = 0; i < options.injectables.length; i++) {
+      const paramTypes = Reflection.getParamTypes(options.injectables[i]);
+      console.log('paramTypes: ', paramTypes);
+    }
+  }
 }
