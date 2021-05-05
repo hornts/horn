@@ -21,7 +21,7 @@ export abstract class HttpAdapter {
     return this._instance.put(args);
   }
 
-  public async listen(...args: any[]) {
-    return this._instance.listen(...args);
+  public async listen(port, ...args: any[]) {
+    return this._instance.listen(port, ...args);
   }
 }

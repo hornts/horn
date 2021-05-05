@@ -17,13 +17,16 @@ export class ApplicationContainer {
     this.graph = new DepGraph();
   }
 
-  public initialize() {
+  /**
+   * Inits application container.
+   */
+  public initialise() {
     this.loadDependencies(this.rootModule);
 
     this.instantiateDependencies();
 
     this.logger?.info('Application container started.');
-    console.log('test');
+
     console.log(this.graph.overallOrder().join(','));
   }
 
@@ -36,15 +39,34 @@ export class ApplicationContainer {
 
     const meta = Reflection.getModuleOptions(ref);
 
-    this.graph.addNode(`module:${ref.name}`, ref);
+    const node = `module:${ref.name}`;
 
-    this.loadInjectables(meta);
+    this.graph.addNode(node, ref);
+
+    this.loadInjectables(node, meta);
+
+    for (let i = 0; i < meta.imports.length; i++) {
+      this.loadDependencies(meta.imports[i]);
+    }
   }
 
-  private loadInjectables(options: ModuleOptions) {
+  private loadInjectables(node: string, options: ModuleOptions) {
     for (let i = 0; i < options.injectables.length; i++) {
       const paramTypes = Reflection.getParamTypes(options.injectables[i]);
-      console.log('paramTypes: ', paramTypes);
+      const injectableNode = options.injectables[i].name;
+      this.graph.addNode(`injectable:${injectableNode}`, options.injectables[i]);
+
+      if (Array.isArray(paramTypes)) {
+        for (let j = 0; j < paramTypes.length; j++) {
+          this.graph.addNode(`injectable:${paramTypes[j].name}`, paramTypes[j]);
+          this.graph.addDependency(
+            `injectable:${injectableNode}`,
+            `injectable:${paramTypes[j].name}`
+          );
+        }
+      }
+
+      this.graph.addDependency(node, `injectable:${injectableNode}`);
     }
   }
 }

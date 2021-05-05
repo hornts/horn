@@ -32,14 +32,16 @@ export class HornApplication<T extends HttpAdapter> {
     this._container = new ApplicationContainer(rootModule, this._logger);
     this._http = httpAdapter;
 
-    this._container.initialize();
+    this._container.initialise();
   }
 
   /**
    * Start a server listening for connections.
    */
-  public listen(...args: any[]) {
-    this._http.listen(...args);
+  public async listen(port: number, ...args: any[]) {
+    await this._http.listen(port, ...args);
+
+    this._logger?.info(`Started in port ${port}.`);
   }
 
   /**

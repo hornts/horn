@@ -21,6 +21,7 @@ describe('ApplicationContainer', () => {
 
   @Module({
     imports: [ModuleA],
+    injectables: [ServiceA],
   })
   class AppModule {}
 
@@ -29,6 +30,6 @@ describe('ApplicationContainer', () => {
   });
 
   it('should initialize container', () => {
-    container.initialize();
+    container.initialise();
   });
 });
