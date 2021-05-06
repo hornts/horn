@@ -10,7 +10,7 @@ export class Registry {
     this.instances.set(token, ref);
   }
 
-  public get(token: symbol): any {
+  public get(token: symbol): any | undefined {
     return this.instances.get(token);
   }
 }

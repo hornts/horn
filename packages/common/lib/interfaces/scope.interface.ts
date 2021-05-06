@@ -1,19 +1,19 @@
 export enum Scope {
   /**
-   * Singleton objects are the same for every request.
+   * Singleton objects are the same for every request (created once).
    * @default
    */
   SINGLETON = 'singleton',
 
   /**
-   * Transient objects are always different.
-   * @todo
+   * Transient objects are created for each injectable.
+   * They creates once and they are different across each injectables.
    */
-  // TRANSIENT = 'transient',
+  TRANSIENT = 'transient',
 
   /**
-   * Request objects are the same for each request but different across each request.
-   * @todo
+   * Request objects created for each incoming request (dynamically)
+   * and disposed after request completed.
    */
-  // REQUEST = 'request',
+  REQUEST = 'request',
 }

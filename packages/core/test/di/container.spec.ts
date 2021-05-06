@@ -21,7 +21,6 @@ describe('ApplicationContainer', () => {
 
   @Module({
     imports: [ModuleA],
-    injectables: [ServiceA],
   })
   class AppModule {}
 
