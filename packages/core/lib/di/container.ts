@@ -22,10 +22,12 @@ export class ApplicationContainer {
    */
   public initialise() {
     this.logger?.info('Loading dependency graph...');
-    this.loadDependencies(this.rootModule);
+    this.loadModuleDependencies(this.rootModule);
 
     this.logger?.info('Instantiating dependencies...');
     this.instantiateDependencies(this.graph.overallOrder());
+
+    this.logger?.debug(this.graph.overallOrder().join(', '));
 
     this.logger?.info('Application container started.');
   }
@@ -36,7 +38,7 @@ export class ApplicationContainer {
     // }
   }
 
-  private loadDependencies(ref: Type<any>) {
+  private loadModuleDependencies(ref: Type<any>): string {
     const meta = Reflection.getModuleOptions(ref);
 
     const moduleToken = `module:${ref.name}`;
@@ -49,10 +51,12 @@ export class ApplicationContainer {
 
     if (Array.isArray(meta.imports)) {
       for (let index = 0; index < meta.imports.length; index++) {
-        this.loadDependencies(meta.imports[index]);
-        this.graph.addDependency(moduleToken, `module:${meta.imports[index].name}`);
+        const token = this.loadModuleDependencies(meta.imports[index]);
+        this.graph.addDependency(moduleToken, token);
       }
     }
+
+    return moduleToken;
   }
 
   private loadModuleInjectables(node: string, { injectables }: ModuleOptions) {
