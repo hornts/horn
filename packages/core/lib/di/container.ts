@@ -10,6 +10,8 @@ import { Registry } from './registry';
 export class ApplicationContainer {
   private graph: DepGraph<Type<any>>;
 
+  private tokens: string[];
+
   private readonly registry: Registry;
 
   constructor(private readonly rootModule: Type<any>, private readonly logger?: Logger) {
@@ -24,18 +26,19 @@ export class ApplicationContainer {
     this.logger?.info('Loading dependency graph...');
     this.loadModuleDependencies(this.rootModule);
 
-    this.logger?.info('Instantiating dependencies...');
-    this.instantiateDependencies(this.graph.overallOrder());
+    // Check for cycling, throw error if cycle exists.
+    this.tokens = this.graph.overallOrder();
 
-    this.logger?.debug(this.graph.overallOrder().join(', '));
+    this.logger?.info('Instantiating dependencies...');
+    this.instantiateDependencies(this.rootModule);
 
     this.logger?.info('Application container started.');
   }
 
-  private instantiateDependencies(tokens: string[]) {
-    // for (let index = 0; index < tokens.length; index++) {
-
-    // }
+  private instantiateDependencies(ref: Type<any>) {
+    for (let index = 0; index < this.tokens.length; index++) {
+      this.logger?.info(`Instantiating ${this.tokens[index].split(':')[1]}`);
+    }
   }
 
   private loadModuleDependencies(ref: Type<any>): string {
