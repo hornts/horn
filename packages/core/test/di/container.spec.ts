@@ -1,4 +1,4 @@
-import { Injectable, Module } from '@hornts/common';
+import { Injectable, Logger, Module } from '@hornts/common';
 import { ApplicationContainer } from '@hornts/core';
 
 describe('ApplicationContainer', () => {
@@ -26,7 +26,7 @@ describe('ApplicationContainer', () => {
   class AppModule {}
 
   beforeAll(() => {
-    container = new ApplicationContainer(AppModule);
+    container = new ApplicationContainer(AppModule, (console as unknown) as Logger);
   });
 
   it('should initialize container', () => {
