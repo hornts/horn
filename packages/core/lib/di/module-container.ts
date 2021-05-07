@@ -1,6 +1,9 @@
 import { ModuleAlreadyExists } from '../errors';
 import { Module } from './module';
 
+/**
+ * Container for application modules.
+ */
 export class ModuleContainer {
   private readonly container = new Map<string, Module>();
 
@@ -10,7 +13,9 @@ export class ModuleContainer {
     return this.container.get(token);
   }
 
-  public set(token: string, module: Module) {
+  public set(module: Module) {
+    const token = module.getToken();
+
     if (this.get(token)) {
       throw new ModuleAlreadyExists(token);
     }

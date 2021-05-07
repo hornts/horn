@@ -7,7 +7,7 @@ import {
 } from '@hornts/common';
 
 /**
- * Sugar over Reflect API
+ * Sugar over Reflect API.
  */
 export class Reflection {
   /**

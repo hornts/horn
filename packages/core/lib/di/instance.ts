@@ -3,7 +3,7 @@ import { InjectableOptions, Type } from '@hornts/common';
 import { Reflection } from './reflection';
 
 /**
- * Represents DI instance
+ * Represents DI instance.
  */
 export class Instance {
   private readonly token: string;

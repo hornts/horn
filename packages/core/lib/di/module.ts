@@ -2,6 +2,9 @@ import { ModuleOptions, Type } from '@hornts/common';
 
 import { Reflection } from './reflection';
 
+/**
+ * Represents application module.
+ */
 export class Module {
   private readonly token: string;
 

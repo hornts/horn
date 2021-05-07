@@ -12,8 +12,8 @@ describe('Registry', () => {
     registry = new Registry();
   });
 
-  it('should add instance', () => {
-    registry.add(token, test);
+  it('should set instance', () => {
+    registry.set(token, test);
   });
 
   it('should get instance', () => {

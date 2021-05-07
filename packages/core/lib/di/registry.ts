@@ -6,7 +6,7 @@ export class Registry {
 
   constructor() {}
 
-  public add(token: symbol, ref: any) {
+  public set(token: symbol, ref: any) {
     this.instances.set(token, ref);
   }
 

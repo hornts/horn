@@ -1,11 +1,11 @@
 import { Logger, ModuleOptions, Type } from '@hornts/common';
 import { DepGraph } from 'dependency-graph';
 
+import { ModuleAlreadyExists } from '../errors';
 import { Instance } from './instance';
 import { Module } from './module';
 import { ModuleContainer } from './module-container';
 import { Registry } from './registry';
-import { ModuleAlreadyExists } from '../errors';
 
 /**
  * Application DI container.
@@ -57,7 +57,7 @@ export class ApplicationContainer {
     const token = module.getToken();
     const meta = module.getMeta();
 
-    this.moduleContainer.set(token, module);
+    this.moduleContainer.set(module);
 
     this.logger?.info(`Loading ${token}`);
 
@@ -89,6 +89,7 @@ export class ApplicationContainer {
   private loadModuleInjectables(module: Module, { injectables }: ModuleOptions) {
     if (Array.isArray(injectables)) {
       for (let index = 0; index < injectables.length; index++) {
+        // TODO: first try to get from graph
         const injectable = new Instance(injectables[index]);
         const token = injectable.getToken();
 
