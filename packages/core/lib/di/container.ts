@@ -1,6 +1,8 @@
 import { Logger, ModuleOptions, Type } from '@hornts/common';
 import { DepGraph } from 'dependency-graph';
 
+import { Instance } from './instance';
+import { Module } from './module';
 import { Reflection } from './reflection';
 import { Registry } from './registry';
 
@@ -8,11 +10,11 @@ import { Registry } from './registry';
  * Application DI container.
  */
 export class ApplicationContainer {
-  private graph: DepGraph<Type<any>>;
-
-  private tokens: string[];
+  private graph: DepGraph<Instance>;
 
   private readonly registry: Registry;
+
+  private readonly modules = new Map<string, Module>();
 
   constructor(private readonly rootModule: Type<any>, private readonly logger?: Logger) {
     this.registry = new Registry();
@@ -26,9 +28,6 @@ export class ApplicationContainer {
     this.logger?.info('Loading dependency graph...');
     this.loadModuleDependencies(this.rootModule);
 
-    // Check for cycling, throw error if cycle exists.
-    this.tokens = this.graph.overallOrder();
-
     this.logger?.info('Instantiating dependencies...');
     this.instantiateDependencies(this.rootModule);
 
@@ -36,8 +35,11 @@ export class ApplicationContainer {
   }
 
   private instantiateDependencies(ref: Type<any>) {
-    for (let index = 0; index < this.tokens.length; index++) {
-      this.logger?.info(`Instantiating ${this.tokens[index].split(':')[1]}`);
+    // Check for cycling, throw error if cycle exists.
+    const tokens = this.graph.overallOrder();
+
+    for (let index = 0; index < tokens.length; index++) {
+      this.logger?.info(`Instantiating ${tokens[index].split(':')[1]}`);
     }
   }
 
@@ -48,7 +50,7 @@ export class ApplicationContainer {
 
     this.logger?.info(`Loading ${moduleToken}`);
 
-    this.graph.addNode(moduleToken, ref);
+    this.graph.addNode(moduleToken, new Instance(ref, meta));
 
     this.loadModuleInjectables(moduleToken, meta);
 
@@ -67,7 +69,7 @@ export class ApplicationContainer {
       for (let index = 0; index < injectables.length; index++) {
         const injectableToken = `injectable:${injectables[index].name}`;
 
-        this.graph.addNode(injectableToken, injectables[index]);
+        this.graph.addNode(injectableToken, new Instance(injectables[index]));
         this.graph.addDependency(node, injectableToken);
 
         this.loadInjectableParams(injectableToken, injectables[index]);
