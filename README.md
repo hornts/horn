@@ -13,7 +13,7 @@ npm i @hornts/core@latest @hornts/common@latest
 
 ## Documentation
 
-To work with **Horn** read [documentation](https://hornts.github.io/) first.
+To work with **Horn** read [documentation](https://hornts.github.io/horn) first.
 
 ## License
 **Horn** is under [MIT License](https://github.com/hornts/horn/blob/master/LICENSE) for everyone.
