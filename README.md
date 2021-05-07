@@ -5,15 +5,15 @@
 
 🦄 **Horn** is an extendable web-framework with IoC (Inversion of Control) container inside.
 
-# Installation
+## Installation
 
 ```bash
-  npm i @hornts/core@latest @hornts/common@latest
+npm i @hornts/core@latest @hornts/common@latest
 ```
 
-# Documentation
+## Documentation
 
 To work with **Horn** read [documentation](https://hornts.github.io/) first.
 
-# License
+## License
 **Horn** is under [MIT License](https://github.com/hornts/horn/blob/master/LICENSE) for everyone.
