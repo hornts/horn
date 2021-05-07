@@ -3,7 +3,6 @@ import { DepGraph } from 'dependency-graph';
 
 import { Instance } from './instance';
 import { Module } from './module';
-import { Reflection } from './reflection';
 import { Registry } from './registry';
 
 /**
@@ -39,54 +38,56 @@ export class ApplicationContainer {
     const tokens = this.graph.overallOrder();
 
     for (let index = 0; index < tokens.length; index++) {
-      this.logger?.info(`Instantiating ${tokens[index].split(':')[1]}`);
+      this.logger?.info(`Instantiating ${tokens[index]}`);
     }
   }
 
-  private loadModuleDependencies(ref: Type<any>): string {
-    const meta = Reflection.getModuleOptions(ref);
+  private loadModuleDependencies(ref: Type<any>): Module {
+    const module = new Module(ref);
 
-    const moduleToken = `module:${ref.name}`;
+    const token = module.getToken();
+    const meta = module.getMeta();
 
-    this.logger?.info(`Loading ${moduleToken}`);
+    this.logger?.info(`Loading ${token}`);
 
-    this.graph.addNode(moduleToken, new Instance(ref, meta));
+    this.graph.addNode(token);
 
-    this.loadModuleInjectables(moduleToken, meta);
+    this.loadModuleInjectables(module, meta);
 
     if (Array.isArray(meta.imports)) {
       for (let index = 0; index < meta.imports.length; index++) {
-        const token = this.loadModuleDependencies(meta.imports[index]);
-        this.graph.addDependency(moduleToken, token);
+        const importedModule = this.loadModuleDependencies(meta.imports[index]);
+        this.graph.addDependency(token, importedModule.getToken());
       }
     }
 
-    return moduleToken;
+    return module;
   }
 
-  private loadModuleInjectables(node: string, { injectables }: ModuleOptions) {
+  private loadModuleInjectables(module: Module, { injectables }: ModuleOptions) {
     if (Array.isArray(injectables)) {
       for (let index = 0; index < injectables.length; index++) {
-        const injectableToken = `injectable:${injectables[index].name}`;
+        const injectable = new Instance(injectables[index]);
+        const token = injectable.getToken();
 
-        this.graph.addNode(injectableToken, new Instance(injectables[index]));
-        this.graph.addDependency(node, injectableToken);
+        this.graph.addNode(token, injectable);
+        this.graph.addDependency(module.getToken(), token);
 
-        this.loadInjectableParams(injectableToken, injectables[index]);
+        this.loadInjectableParams(injectable);
       }
     }
   }
 
-  private loadInjectableParams(node: string, ref: Type<any>) {
-    const params = Reflection.getParamTypes(ref);
+  private loadInjectableParams(injectable: Instance) {
+    const dependencies = injectable.getDependencies();
 
-    if (Array.isArray(params)) {
-      for (let index = 0; index < params.length; index++) {
-        const injectableToken = `injectable:${params[index].name}`;
-        this.graph.addNode(injectableToken, params[index]);
-        this.graph.addDependency(node, injectableToken);
-        this.loadInjectableParams(injectableToken, params[index]);
-      }
+    for (let index = 0; index < dependencies.length; index++) {
+      const dependency = new Instance(dependencies[index]);
+      const dependencyToken = dependency.getToken();
+
+      this.graph.addNode(dependencyToken, dependency);
+      this.graph.addDependency(injectable.getToken(), dependencyToken);
+      this.loadInjectableParams(dependency);
     }
   }
 }

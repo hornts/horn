@@ -8,7 +8,7 @@ export class Module {
   private readonly meta: ModuleOptions;
 
   constructor(private readonly ref: Type<any>) {
-    this.token = `module:{this.ref.name}`;
+    this.token = `module:${this.ref.name}`;
     this.meta = Reflection.getModuleOptions(ref);
   }
 

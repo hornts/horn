@@ -35,7 +35,7 @@ export class Reflection {
   /**
    * Returns constructor parameters.
    */
-  public static getParamTypes<T>(constructor: Type<T>): undefined | any[] {
-    return Reflect.getOwnMetadata('design:paramtypes', constructor);
+  public static getParamTypes<T>(constructor: Type<T>): any[] {
+    return Reflect.getOwnMetadata('design:paramtypes', constructor) || [];
   }
 }
