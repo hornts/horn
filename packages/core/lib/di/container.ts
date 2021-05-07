@@ -1,7 +1,7 @@
 import { Logger, ModuleOptions, Type } from '@hornts/common';
 import { DepGraph } from 'dependency-graph';
 
-import { ModuleAlreadyExists } from '../errors';
+import { ModuleAlreadyExistsError } from '../errors';
 import { Instance } from './instance';
 import { Module } from './module';
 import { ModuleContainer } from './module-container';
@@ -74,7 +74,7 @@ export class ApplicationContainer {
         try {
           importedModule = this.loadModuleDependencies(meta.imports[index]);
         } catch (error) {
-          if (error instanceof ModuleAlreadyExists) {
+          if (error instanceof ModuleAlreadyExistsError) {
             importedModule = this.moduleContainer.get(`module:${meta.imports[index].name}`);
           } else {
             throw error;

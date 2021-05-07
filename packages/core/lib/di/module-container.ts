@@ -1,4 +1,4 @@
-import { ModuleAlreadyExists } from '../errors';
+import { ModuleAlreadyExistsError } from '../errors';
 import { Module } from './module';
 
 /**
@@ -17,7 +17,7 @@ export class ModuleContainer {
     const token = module.getToken();
 
     if (this.get(token)) {
-      throw new ModuleAlreadyExists(token);
+      throw new ModuleAlreadyExistsError(token);
     }
 
     this.container.set(token, module);

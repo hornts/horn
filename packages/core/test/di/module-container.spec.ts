@@ -1,5 +1,5 @@
 import { Module as ModuleDecorator } from '@hornts/common';
-import { Module, ModuleAlreadyExists, ModuleContainer } from '@hornts/core';
+import { Module, ModuleAlreadyExistsError, ModuleContainer } from '@hornts/core';
 
 describe('ModuleContainer', () => {
   @ModuleDecorator()
@@ -19,7 +19,7 @@ describe('ModuleContainer', () => {
     expect(moduleContainer.get('module:AppModule')).toEqual(module);
   });
 
-  it('should throw ModuleAlreadyExists', () => {
-    expect(() => moduleContainer.set(module)).toThrow(ModuleAlreadyExists);
+  it('should throw ModuleAlreadyExistsError', () => {
+    expect(() => moduleContainer.set(module)).toThrow(ModuleAlreadyExistsError);
   });
 });
