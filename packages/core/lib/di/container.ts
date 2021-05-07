@@ -1,7 +1,7 @@
 import { Logger, ModuleOptions, Type } from '@hornts/common';
-import { DepGraph } from 'dependency-graph';
+import { DepGraph, DepGraphCycleError } from 'dependency-graph';
 
-import { ModuleAlreadyExistsError } from '../errors';
+import { CircularDependencyError, ModuleAlreadyExistsError } from '../errors';
 import { Injectable } from './injectable';
 import { Module } from './module';
 import { ModuleContainer } from './module-container';
@@ -37,8 +37,18 @@ export class ApplicationContainer {
   }
 
   private instantiateDependencies() {
+    let tokens = [];
+
     // Also check for cycling, throws error if cycle exists.
-    const tokens = this.graph.overallOrder();
+    try {
+      tokens = this.graph.overallOrder();
+    } catch (error) {
+      if (error instanceof DepGraphCycleError) {
+        throw new CircularDependencyError(error.message);
+      } else {
+        throw error;
+      }
+    }
 
     for (let index = 0; index < tokens.length; index++) {
       this.logger?.debug(`Instantiating ${tokens[index]}`);
@@ -75,6 +85,7 @@ export class ApplicationContainer {
           importedModule = this.loadModuleDependencies(meta.imports[index]);
         } catch (error) {
           if (error instanceof ModuleAlreadyExistsError) {
+            // TODO: dont like this string template
             importedModule = this.moduleContainer.get(`module:${meta.imports[index].name}`);
           } else {
             throw error;
@@ -93,7 +104,6 @@ export class ApplicationContainer {
       for (let index = 0; index < injectables.length; index++) {
         // TODO: dublication
         const injectable = new Injectable(injectables[index]);
-
         const token = injectable.getToken();
 
         if (!this.graph.hasNode(token)) {
