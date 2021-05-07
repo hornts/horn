@@ -45,6 +45,7 @@ export class ApplicationContainer {
       if (!tokens[index].startsWith('module:')) {
         const node = this.graph.getNodeData(tokens[index]);
 
+        // TODO: get deps and pass it to constructor
         const instance = node.instantiate();
 
         this.registry.set(Symbol(node.getToken()), instance);
@@ -90,6 +91,7 @@ export class ApplicationContainer {
   private loadModuleInjectables(module: Module, { injectables }: ModuleOptions) {
     if (Array.isArray(injectables)) {
       for (let index = 0; index < injectables.length; index++) {
+        // TODO: dublication
         const injectable = new Injectable(injectables[index]);
 
         const token = injectable.getToken();
@@ -108,6 +110,7 @@ export class ApplicationContainer {
     const dependencies = injectable.getDependencies();
 
     for (let index = 0; index < dependencies.length; index++) {
+      // TODO: dublication
       const dependency = new Injectable(dependencies[index]);
       const dependencyToken = dependency.getToken();
 
