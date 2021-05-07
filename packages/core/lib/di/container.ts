@@ -97,7 +97,6 @@ export class ApplicationContainer {
 
         if (!this.graph.hasNode(token)) {
           this.graph.addNode(token, injectable);
-
           this.loadInjectableParams(injectable);
         }
 
