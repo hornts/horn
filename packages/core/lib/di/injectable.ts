@@ -5,7 +5,7 @@ import { Reflection } from './reflection';
 /**
  * Represents DI instance.
  */
-export class Instance {
+export class Injectable {
   private readonly token: string;
 
   private readonly meta: InjectableOptions;

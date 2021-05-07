@@ -2,7 +2,7 @@ import { Logger, ModuleOptions, Type } from '@hornts/common';
 import { DepGraph } from 'dependency-graph';
 
 import { ModuleAlreadyExistsError } from '../errors';
-import { Instance } from './instance';
+import { Injectable } from './injectable';
 import { Module } from './module';
 import { ModuleContainer } from './module-container';
 import { Registry } from './registry';
@@ -13,7 +13,7 @@ import { Registry } from './registry';
 export class ApplicationContainer {
   private readonly moduleContainer: ModuleContainer;
 
-  private graph: DepGraph<Instance>;
+  private graph: DepGraph<Injectable>;
 
   private readonly registry: Registry;
 
@@ -90,7 +90,7 @@ export class ApplicationContainer {
   private loadModuleInjectables(module: Module, { injectables }: ModuleOptions) {
     if (Array.isArray(injectables)) {
       for (let index = 0; index < injectables.length; index++) {
-        const injectable = new Instance(injectables[index]);
+        const injectable = new Injectable(injectables[index]);
 
         const token = injectable.getToken();
 
@@ -104,11 +104,11 @@ export class ApplicationContainer {
     }
   }
 
-  private loadInjectableParams(injectable: Instance) {
+  private loadInjectableParams(injectable: Injectable) {
     const dependencies = injectable.getDependencies();
 
     for (let index = 0; index < dependencies.length; index++) {
-      const dependency = new Instance(dependencies[index]);
+      const dependency = new Injectable(dependencies[index]);
       const dependencyToken = dependency.getToken();
 
       if (!this.graph.hasNode(dependencyToken)) {

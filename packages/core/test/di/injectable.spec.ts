@@ -1,16 +1,16 @@
-import { Injectable, Scope } from '@hornts/common';
-import { Instance } from '@hornts/core';
+import { Injectable as InjectableDecorator, Scope } from '@hornts/common';
+import { Injectable } from '@hornts/core';
 
 describe('Instance', () => {
-  @Injectable()
+  @InjectableDecorator()
   class User {
     constructor(private readonly age: number) {}
   }
 
-  let instance: Instance;
+  let instance: Injectable;
 
   beforeAll(() => {
-    instance = new Instance(User);
+    instance = new Injectable(User);
   });
 
   it('should get token', () => {
