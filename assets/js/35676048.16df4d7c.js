@@ -1,0 +1,1 @@
+(self.webpackChunkhorn=self.webpackChunkhorn||[]).push([[382],{838:function(e){"use strict";e.exports=JSON.parse('{"permalink":"/horn/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":3,"previousPage":null,"nextPage":null,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);
