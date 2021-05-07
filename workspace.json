@@ -15,8 +15,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "codeCoverage": true,
-            "coverageReporters": ["text"],
+            "codeCoverage": false,
             "jestConfig": "packages/core/jest.config.js",
             "passWithNoTests": true
           }
@@ -59,8 +58,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "codeCoverage": true,
-            "coverageReporters": ["text"],
+            "codeCoverage": false,
             "jestConfig": "packages/common/jest.config.js",
             "passWithNoTests": true
           }
@@ -103,8 +101,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "codeCoverage": true,
-            "coverageReporters": ["text"],
+            "codeCoverage": false,
             "jestConfig": "packages/http/http-express/jest.config.js",
             "passWithNoTests": true
           }
@@ -147,8 +144,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "codeCoverage": true,
-            "coverageReporters": ["text"],
+            "codeCoverage": false,
             "jestConfig": "packages/http/http-fastify/jest.config.js",
             "passWithNoTests": true
           }

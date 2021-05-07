@@ -113,9 +113,12 @@ export class ApplicationContainer {
       const dependency = new Instance(dependencies[index]);
       const dependencyToken = dependency.getToken();
 
-      this.graph.addNode(dependencyToken, dependency);
+      if (!this.graph.hasNode(dependencyToken)) {
+        this.graph.addNode(dependencyToken, dependency);
+        this.loadInjectableParams(dependency);
+      }
+
       this.graph.addDependency(injectable.getToken(), dependencyToken);
-      this.loadInjectableParams(dependency);
     }
   }
 }
