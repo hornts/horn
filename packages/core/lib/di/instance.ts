@@ -18,7 +18,7 @@ export class Instance {
     this.dependencies = Reflection.getParamTypes(ref);
   }
 
-  public instantiate(dependencies: any[]): any {
+  public instantiate(dependencies: any[] = []): any {
     // eslint-disable-next-line new-cap
     return new this.ref(...dependencies);
   }
