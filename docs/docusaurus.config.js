@@ -1,9 +1,9 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: 'Horn',
-  tagline: 'Dinosaurs are cool',
-  url: 'https://hornts.github.io',
-  baseUrl: '/horn/',
+  tagline: '🦄 Extendable web-framework with IoC (Inversion of Control) container inside.',
+  url: 'https://hornts.github.io/horn',
+  baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -11,9 +11,9 @@ module.exports = {
   projectName: 'horn',
   themeConfig: {
     navbar: {
-      title: 'My Site',
+      title: 'Horn',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'Horn',
         src: 'img/logo.svg',
       },
       items: [
@@ -23,9 +23,8 @@ module.exports = {
           position: 'left',
           label: 'Tutorial',
         },
-        { to: '/blog', label: 'Blog', position: 'left' },
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/hornts/horn',
           label: 'GitHub',
           position: 'right',
         },
@@ -64,17 +63,13 @@ module.exports = {
           title: 'More',
           items: [
             {
-              label: 'Blog',
-              to: '/blog',
-            },
-            {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/hornts/horn',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} @hornts, Inc. Built with Docusaurus.`,
     },
   },
   presets: [
@@ -85,11 +80,6 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/',
-        },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
