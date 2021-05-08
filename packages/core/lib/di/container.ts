@@ -86,8 +86,6 @@ export class ApplicationContainer {
 
     this.moduleContainer.set(module);
 
-    this.logger?.debug(`Loading ${token}`);
-
     this.graph.addNode(token);
 
     this.loadInjectables(token, meta.injectables);
@@ -100,7 +98,6 @@ export class ApplicationContainer {
           importedModule = this.loadModuleDependencies(meta.imports[index]);
         } catch (error) {
           if (error instanceof ModuleAlreadyExistsError) {
-            // TODO: dont like this string template
             importedModule = this.moduleContainer.get(`module:${meta.imports[index].name}`);
           } else {
             throw error;
