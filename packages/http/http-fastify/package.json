@@ -2,5 +2,8 @@
   "name": "@hornts/http-fastify",
   "version": "0.0.1",
   "author": "Alexey Vasyukov",
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }
