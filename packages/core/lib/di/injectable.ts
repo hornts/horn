@@ -6,6 +6,8 @@ import { Reflection } from './reflection';
  * Represents DI instance.
  */
 export class Injectable {
+  private instance: any;
+
   private readonly token: string;
 
   private readonly meta: InjectableOptions;
@@ -20,7 +22,9 @@ export class Injectable {
 
   public instantiate(dependencies: any[] = []): any {
     // eslint-disable-next-line new-cap
-    return new this.ref(...dependencies);
+    this.instance = new this.ref(...dependencies);
+
+    return this.instance;
   }
 
   public getToken(): string {

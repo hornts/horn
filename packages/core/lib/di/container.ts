@@ -1,4 +1,4 @@
-import { Logger, ModuleOptions, Type } from '@hornts/common';
+import { Logger, Type } from '@hornts/common';
 import { DepGraph, DepGraphCycleError } from 'dependency-graph';
 
 import { CircularDependencyError, ModuleAlreadyExistsError } from '../errors';
@@ -71,11 +71,11 @@ export class ApplicationContainer {
 
     this.moduleContainer.set(module);
 
-    this.logger?.info(`Loading ${token}`);
+    this.logger?.debug(`Loading ${token}`);
 
     this.graph.addNode(token);
 
-    this.loadModuleInjectables(module, meta);
+    this.loadInjectables(token, meta.injectables);
 
     if (Array.isArray(meta.imports)) {
       for (let index = 0; index < meta.imports.length; index++) {
@@ -99,37 +99,17 @@ export class ApplicationContainer {
     return module;
   }
 
-  private loadModuleInjectables(module: Module, { injectables }: ModuleOptions) {
-    if (Array.isArray(injectables)) {
-      for (let index = 0; index < injectables.length; index++) {
-        // TODO: dublication
-        const injectable = new Injectable(injectables[index]);
-        const token = injectable.getToken();
+  private loadInjectables(rootToken: string, injectables: Type<any>[]) {
+    for (let index = 0; index < injectables.length; index++) {
+      const injectable = new Injectable(injectables[index]);
+      const token = injectable.getToken();
 
-        if (!this.graph.hasNode(token)) {
-          this.graph.addNode(token, injectable);
-          this.loadInjectableParams(injectable);
-        }
-
-        this.graph.addDependency(module.getToken(), token);
-      }
-    }
-  }
-
-  private loadInjectableParams(injectable: Injectable) {
-    const dependencies = injectable.getDependencies();
-
-    for (let index = 0; index < dependencies.length; index++) {
-      // TODO: dublication
-      const dependency = new Injectable(dependencies[index]);
-      const dependencyToken = dependency.getToken();
-
-      if (!this.graph.hasNode(dependencyToken)) {
-        this.graph.addNode(dependencyToken, dependency);
-        this.loadInjectableParams(dependency);
+      if (!this.graph.hasNode(token)) {
+        this.graph.addNode(token, injectable);
+        this.loadInjectables(token, injectable.getDependencies());
       }
 
-      this.graph.addDependency(injectable.getToken(), dependencyToken);
+      this.graph.addDependency(rootToken, token);
     }
   }
 }
