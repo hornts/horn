@@ -1,7 +1,11 @@
 import { Logger, Type } from '@hornts/common';
 import { DepGraph, DepGraphCycleError } from 'dependency-graph';
 
-import { CircularDependencyError, ModuleAlreadyExistsError } from '../errors';
+import {
+  CircularDependencyError,
+  CouldNotResolveDependency,
+  ModuleAlreadyExistsError,
+} from '../errors';
 import { Injectable } from './injectable';
 import { Module } from './module';
 import { ModuleContainer } from './module-container';
@@ -58,8 +62,14 @@ export class ApplicationContainer {
         const dependenciesRefs = node.getDependencies();
         const dependencies = [];
         for (let i = 0; i < dependenciesRefs.length; i++) {
-          const dep = this.registry.get(`injectable:${dependenciesRefs[i].name}`);
-          dependencies.push(dep);
+          const token = `injectable:${dependenciesRefs[i].name}`;
+          const dependency = this.registry.get(token);
+
+          if (!dependency) {
+            throw new CouldNotResolveDependency(token, node.getToken());
+          }
+
+          dependencies.push(dependency);
         }
 
         const instance = node.instantiate(dependencies);
