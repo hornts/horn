@@ -33,6 +33,8 @@ export class ApplicationContainer {
     this.logger?.info('Instantiating dependencies...');
     this.instantiateDependencies();
 
+    console.log(this.registry);
+
     this.logger?.info('Application container started.');
   }
 
@@ -55,10 +57,16 @@ export class ApplicationContainer {
       if (!tokens[index].startsWith('module:')) {
         const node = this.graph.getNodeData(tokens[index]);
 
-        // TODO: get deps and pass it to constructor
-        const instance = node.instantiate();
+        const dependenciesRefs = node.getDependencies();
+        const dependencies = [];
+        for (let i = 0; i < dependenciesRefs.length; i++) {
+          const dep = this.registry.get(`injectable:${dependenciesRefs[i].name}`);
+          dependencies.push(dep);
+        }
 
-        this.registry.set(Symbol(node.getToken()), instance);
+        const instance = node.instantiate(dependencies);
+
+        this.registry.set(node.getToken(), instance);
       }
     }
   }
