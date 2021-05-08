@@ -1,2 +1,2 @@
-export * from './injectable.decorator';
-export * from './module.decorator';
+export * from './di';
+export * from './http';
