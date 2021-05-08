@@ -3,8 +3,8 @@ import { DepGraph, DepGraphCycleError } from 'dependency-graph';
 
 import {
   CircularDependencyError,
-  CouldNotResolveDependency,
   ModuleAlreadyExistsError,
+  ResolveDependencyError,
 } from '../errors';
 import { Injectable } from './injectable';
 import { Module } from './module';
@@ -65,7 +65,7 @@ export class ApplicationContainer {
           const dependency = this.registry.get(token);
 
           if (!dependency) {
-            throw new CouldNotResolveDependency(token, node.getToken());
+            throw new ResolveDependencyError(token, node.getToken());
           }
 
           dependencies.push(dependency);
