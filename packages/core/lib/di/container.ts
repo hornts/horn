@@ -43,7 +43,6 @@ export class ApplicationContainer {
   private instantiateDependencies() {
     let tokens = [];
 
-    // Also check for cycling, throws error if cycle exists.
     try {
       tokens = this.graph.overallOrder();
     } catch (error) {

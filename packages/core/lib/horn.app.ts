@@ -12,15 +12,15 @@ export interface HornOptions {
 }
 
 export class HornApplication<T extends HttpAdapter> {
-  private readonly _logger?: Logger;
+  private readonly logger?: Logger;
 
-  private readonly _container: ApplicationContainer;
+  private readonly container: ApplicationContainer;
 
-  private readonly _http: T;
+  private readonly http: T;
 
   constructor(rootModule: Type<any>, httpAdapter: T, options: HornOptions = { logger: true }) {
     if (options.logger) {
-      this._logger = new Logger({
+      this.logger = new Logger({
         name: 'Horn',
         prettyPrint: {
           colorize: true,
@@ -29,25 +29,25 @@ export class HornApplication<T extends HttpAdapter> {
       });
     }
 
-    this._container = new ApplicationContainer(rootModule, this._logger);
-    this._http = httpAdapter;
+    this.container = new ApplicationContainer(rootModule, this.logger);
+    this.http = httpAdapter;
 
-    this._container.initialise();
+    this.container.initialise();
   }
 
   /**
    * Start a server listening for connections.
    */
   public async listen(port: number, ...args: any[]) {
-    await this._http.listen(port, ...args);
+    await this.http.listen(port, ...args);
 
-    this._logger?.info(`Started on port ${port}.`);
+    this.logger?.info(`Starts listening on port ${port}.`);
   }
 
   /**
    * Returns http server instance.
    */
   public getHttpInstance(): any {
-    return this._http.getInstance();
+    return this.http.getInstance();
   }
 }
