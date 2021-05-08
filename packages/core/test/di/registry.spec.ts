@@ -5,7 +5,7 @@ describe('Registry', () => {
 
   let registry: Registry;
 
-  const token = Symbol('Test');
+  const token = 'Test';
   const test = new Test();
 
   beforeAll(() => {
