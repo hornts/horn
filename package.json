@@ -27,6 +27,7 @@
     "format:write": "nx format:write",
     "format:check": "nx format:check",
     "release": "release-it",
+    "publish": "nx run-many --all --target-publish",
     "update": "nx migrate latest",
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",

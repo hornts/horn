@@ -41,6 +41,13 @@
             "buildableProjectDepsInPackageJsonType": "peerDependencies"
           },
           "outputs": ["{options.outputPath}"]
+        },
+        "publish": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "npm publish",
+            "cwd": "dist/packages/core"
+          }
         }
       }
     },
@@ -84,6 +91,13 @@
             "buildableProjectDepsInPackageJsonType": "peerDependencies"
           },
           "outputs": ["{options.outputPath}"]
+        },
+        "publish": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "npm publish",
+            "cwd": "dist/packages/common"
+          }
         }
       }
     },
@@ -127,6 +141,13 @@
             "buildableProjectDepsInPackageJsonType": "peerDependencies"
           },
           "outputs": ["{options.outputPath}"]
+        },
+        "publish": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "npm publish",
+            "cwd": "dist/packages/http/http-express"
+          }
         }
       }
     },
@@ -170,6 +191,13 @@
             "buildableProjectDepsInPackageJsonType": "peerDependencies"
           },
           "outputs": ["{options.outputPath}"]
+        },
+        "publish": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "npm publish",
+            "cwd": "dist/packages/http/http-fastify"
+          }
         }
       }
     }
