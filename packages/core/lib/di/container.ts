@@ -33,8 +33,6 @@ export class ApplicationContainer {
     this.logger?.info('Instantiating dependencies...');
     this.instantiateDependencies();
 
-    console.log(this.registry);
-
     this.logger?.info('Application container started.');
   }
 
