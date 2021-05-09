@@ -22,7 +22,7 @@ export class ApplicationContainer {
    * Inits application container.
    */
   public initialise() {
-    this.logger?.info('Loading dependency graph...');
+    this.logger?.info('Building dependency graph...');
     this.graph.build(this.rootModule);
 
     this.logger?.info('Instantiating dependencies...');

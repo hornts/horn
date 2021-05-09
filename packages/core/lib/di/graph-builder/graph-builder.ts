@@ -57,7 +57,7 @@ export class GraphBuilder {
           importedModule = this.loadModuleDependencies(meta.imports[index]);
         } catch (error) {
           if (error instanceof ModuleAlreadyExistsError) {
-            importedModule = this.moduleContainer.get(`module:${meta.imports[index].name}`);
+            importedModule = this.moduleContainer.get(error.token);
           } else {
             throw error;
           }
