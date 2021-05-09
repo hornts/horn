@@ -1,22 +1,19 @@
 import { InjectableOptions, Type } from '@hornts/common';
 
 import { Reflection } from './reflection';
+import { Wrapper } from './wrapper';
 
 /**
  * Represents DI instance.
  */
-export class Injectable {
+export class Injectable extends Wrapper<InjectableOptions> {
   private instance: any;
-
-  private readonly token: string;
-
-  private readonly meta: InjectableOptions;
 
   private readonly dependencies: Type<any>[];
 
   constructor(private readonly ref: Type<any>) {
-    this.token = `injectable:${this.ref.name}`;
-    this.meta = Reflection.getInjectableOptions(ref);
+    super(`injectable:${ref.name}`, Reflection.getInjectableOptions(ref));
+
     this.dependencies = Reflection.getParamTypes(ref);
   }
 
@@ -25,14 +22,6 @@ export class Injectable {
     this.instance = new this.ref(...dependencies);
 
     return this.instance;
-  }
-
-  public getToken(): string {
-    return this.token;
-  }
-
-  public getMeta(): InjectableOptions {
-    return this.meta;
   }
 
   public getDependencies(): Type<any>[] {
