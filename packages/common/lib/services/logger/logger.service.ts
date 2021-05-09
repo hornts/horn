@@ -1,7 +1,7 @@
 import * as pino from 'pino';
 
 export interface LoggerService {
-  child(...args: any[]): any;
+  child(...args: any[]): LoggerService;
   fatal(...args: any[]);
   error(...args: any[]);
   warn(...args: any[]);

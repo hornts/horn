@@ -24,7 +24,8 @@ export class HornApplication<T extends HttpAdapter> {
         name: 'Horn',
         prettyPrint: {
           colorize: true,
-          ignore: 'pid,hostname,time',
+          ignore: 'pid,hostname',
+          translateTime: true,
         },
       });
     }
