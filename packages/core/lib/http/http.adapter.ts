@@ -6,22 +6,22 @@ export abstract class HttpAdapter {
   }
 
   public async get(...args: any[]) {
-    return this._instance.get(...args);
+    return this._instance?.get(...args);
   }
 
   public async post(...args: any[]) {
-    return this._instance.post(...args);
+    return this._instance?.post(...args);
   }
 
   public async delete(...args: any[]) {
-    return this._instance.delete(...args);
+    return this._instance?.delete(...args);
   }
 
   public async put(...args: any[]) {
-    return this._instance.put(...args);
+    return this._instance?.put(...args);
   }
 
   public async listen(port, ...args: any[]) {
-    return this._instance.listen(port, ...args);
+    return this._instance?.listen(port, ...args);
   }
 }

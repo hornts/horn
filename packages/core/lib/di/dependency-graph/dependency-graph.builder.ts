@@ -4,10 +4,10 @@ import { DepGraph, DepGraphCycleError } from 'dependency-graph';
 import { CircularDependencyError, ModuleAlreadyExistsError } from '../../errors';
 import { Injectable } from '../injectable';
 import { Module } from '../module';
-import { ModuleContainer } from '../module-container';
 import { Wrapper } from '../wrapper';
+import { ModuleContainer } from './module-container';
 
-export class GraphBuilder {
+export class DependencyGraphBuilder {
   private readonly graph: DepGraph<Wrapper<any>>;
 
   private readonly moduleContainer: ModuleContainer;

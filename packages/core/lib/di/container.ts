@@ -1,7 +1,7 @@
 import { Logger, Type } from '@hornts/common';
 
 import { ResolveDependencyError } from '../errors';
-import { GraphBuilder } from './graph-builder';
+import { DependencyGraphBuilder } from './dependency-graph';
 import { Injectable } from './injectable';
 import { Registry } from './registry';
 
@@ -11,11 +11,11 @@ import { Registry } from './registry';
 export class ApplicationContainer {
   private readonly registry: Registry;
 
-  private readonly graph: GraphBuilder;
+  private readonly graph: DependencyGraphBuilder;
 
   constructor(private readonly rootModule: Type<any>, private readonly logger?: Logger) {
     this.registry = new Registry();
-    this.graph = new GraphBuilder();
+    this.graph = new DependencyGraphBuilder();
   }
 
   /**

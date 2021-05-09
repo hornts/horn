@@ -16,20 +16,10 @@ describe('ApplicationContainer', () => {
     @Module({
       injectables: [ServiceA],
     })
-    class ModuleC {}
-
-    @Module({
-      imports: [ModuleC],
-    })
-    class ModuleB {}
-
-    @Module({
-      imports: [ModuleC],
-    })
     class ModuleA {}
 
     @Module({
-      imports: [ModuleA, ModuleB],
+      imports: [ModuleA],
     })
     class AppModule {}
 

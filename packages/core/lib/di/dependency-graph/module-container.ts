@@ -1,5 +1,5 @@
-import { ModuleAlreadyExistsError } from '../errors';
-import { Module } from './module';
+import { ModuleAlreadyExistsError } from '../../errors';
+import { Module } from '../module';
 
 /**
  * Container for application modules.
