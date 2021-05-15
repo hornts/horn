@@ -1,1 +1,0 @@
-(self.webpackChunkhorn=self.webpackChunkhorn||[]).push([[95],{6353:function(e){"use strict";e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Welcome","permalink":"/horn/blog/welcome"},{"title":"Hello","permalink":"/horn/blog/hello-world"},{"title":"Hola","permalink":"/horn/blog/hola"}]}')}}]);

@@ -1,1 +1,0 @@
-(self.webpackChunkhorn=self.webpackChunkhorn||[]).push([[165],{2044:function(l){"use strict";l.exports=JSON.parse('{"allTagsPath":"/horn/blog/tags","slug":"hello","name":"hello","count":2,"permalink":"/horn/blog/tags/hello"}')}}]);
