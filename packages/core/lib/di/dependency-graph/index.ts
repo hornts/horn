@@ -1,2 +1,1 @@
-export * from './builder';
-export * from './module-container';
+export * from './dependency-graph';

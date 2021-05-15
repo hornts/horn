@@ -3,6 +3,7 @@ import {
   InjectableOptions,
   MODULE_OPTIONS_METADATA,
   ModuleOptions,
+  Scope,
   Type,
 } from '@hornts/common';
 
@@ -29,13 +30,18 @@ export class Reflection {
    * Returns injectable options.
    */
   public static getInjectableOptions<T>(constructor: Type<T>): InjectableOptions {
-    return Reflect.getOwnMetadata(INJECTABLE_OPTIONS_METADATA, constructor);
+    const meta = Reflect.getOwnMetadata(INJECTABLE_OPTIONS_METADATA, constructor);
+
+    return {
+      scope: Scope.SINGLETON,
+      ...meta,
+    };
   }
 
   /**
    * Returns constructor parameters.
    */
-  public static getParamTypes<T>(constructor: Type<T>): any[] {
+  public static getParamTypes<T>(constructor: Type<T>): Type<any>[] {
     return Reflect.getOwnMetadata('design:paramtypes', constructor) || [];
   }
 }

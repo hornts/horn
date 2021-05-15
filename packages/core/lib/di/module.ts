@@ -1,13 +1,22 @@
 import { ModuleOptions, Type } from '@hornts/common';
 
 import { Reflection } from './reflection';
-import { Wrapper } from './wrapper';
 
-/**
- * Represents application module.
- */
-export class Module extends Wrapper<ModuleOptions> {
+export class Module {
+  private readonly token: string;
+
+  private readonly meta: ModuleOptions;
+
   constructor(private readonly ref: Type<any>) {
-    super(`module:${ref.name}`, Reflection.getModuleOptions(ref));
+    this.token = `module:${ref.name}`;
+    this.meta = Reflection.getModuleOptions(ref);
+  }
+
+  public getToken(): string {
+    return this.token;
+  }
+
+  public getMeta(): ModuleOptions {
+    return this.meta;
   }
 }

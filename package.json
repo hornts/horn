@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "author": "Alexey Vasyukov",
   "license": "MIT",
+  "engines": {
+    "node": ">=14"
+  },
   "scripts": {
     "nx": "nx",
     "start": "nx serve",

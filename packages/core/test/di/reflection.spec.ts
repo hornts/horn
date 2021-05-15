@@ -2,59 +2,65 @@ import { Injectable, Module, Scope } from '@hornts/common';
 import { Reflection } from '@hornts/core';
 
 describe('Reflection', () => {
-  describe('@Module', () => {
-    it('should return empty ModuleOptions when no options passed', () => {
-      @Module()
-      class App {}
+  it('should return empty ModuleOptions when no options passed', () => {
+    @Module()
+    class App {}
 
-      const meta = Reflection.getModuleOptions(App);
+    const meta = Reflection.getModuleOptions(App);
 
-      expect(meta).toStrictEqual({
-        imports: [],
-        controllers: [],
-        injectables: [],
-        exports: [],
-      });
-    });
-
-    it('should return ModuleOptions', () => {
-      @Module()
-      class ModuleA {}
-
-      @Module({
-        imports: [ModuleA],
-      })
-      class App {}
-
-      const meta = Reflection.getModuleOptions(App);
-
-      expect(meta).toStrictEqual({
-        imports: [ModuleA],
-        controllers: [],
-        injectables: [],
-        exports: [],
-      });
+    expect(meta).toStrictEqual({
+      imports: [],
+      controllers: [],
+      injectables: [],
+      exports: [],
     });
   });
 
-  describe('@Injectable', () => {
-    it('should return InjectableOptions when no options passed', () => {
-      @Injectable()
-      class Service {}
+  it('should return ModuleOptions', () => {
+    @Module()
+    class ModuleA {}
 
-      const meta = Reflection.getInjectableOptions(Service);
+    @Module({
+      imports: [ModuleA],
+    })
+    class App {}
 
-      expect(meta).toStrictEqual({ scope: Scope.SINGLETON });
+    const meta = Reflection.getModuleOptions(App);
+
+    expect(meta).toStrictEqual({
+      imports: [ModuleA],
+      controllers: [],
+      injectables: [],
+      exports: [],
     });
+  });
 
-    it('should return InjectableOptions', () => {
-      @Injectable({ scope: Scope.SINGLETON })
-      class Service {}
+  it('should return InjectableOptions when no options passed', () => {
+    @Injectable()
+    class Service {}
 
-      const meta = Reflection.getInjectableOptions(Service);
+    const meta = Reflection.getInjectableOptions(Service);
 
-      expect(meta).toStrictEqual({ scope: Scope.SINGLETON });
-    });
+    expect(meta).toStrictEqual({ scope: Scope.SINGLETON });
+  });
+
+  it('should return InjectableOptions', () => {
+    @Injectable({ scope: Scope.SINGLETON })
+    class Service {}
+
+    const meta = Reflection.getInjectableOptions(Service);
+
+    expect(meta).toStrictEqual({ scope: Scope.SINGLETON });
+  });
+
+  it(`should return empty array of params when constructor parameters don't exists`, () => {
+    class ServiceA {
+      constructor() {}
+    }
+
+    const meta = Reflection.getParamTypes(ServiceA);
+
+    expect(meta).toStrictEqual([]);
   });
 
   it('should return ParamTypes', () => {
