@@ -3,7 +3,7 @@ module.exports = {
   title: 'Horn',
   tagline: '🦄 Extendable web-framework with IoC (Inversion of Control) container inside.',
   url: 'https://hornts.github.io/horn',
-  baseUrl: '/',
+  baseUrl: '/horn/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -32,43 +32,6 @@ module.exports = {
     },
     footer: {
       style: 'dark',
-      links: [
-        {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Tutorial',
-              to: '/docs/intro',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
-            },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
-            {
-              label: 'GitHub',
-              href: 'https://github.com/hornts/horn',
-            },
-          ],
-        },
-      ],
       copyright: `Copyright © ${new Date().getFullYear()} @hornts, Inc. Built with Docusaurus.`,
     },
   },

@@ -28,6 +28,10 @@ export class DependencyGraph {
     }
   }
 
+  public getNode(token: string): BasicInjectable<any> | string {
+    return this.graph.getNodeData(token);
+  }
+
   private loadModuleDependencies(ref: Type<any>) {
     const module = new Module(ref);
 

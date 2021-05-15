@@ -17,8 +17,17 @@ export class ApplicationContainer {
     this.graph.build(this.rootModule);
 
     this.logger?.info('Instantiating dependencies...');
-    // this.instantiateDependencies();
+    this.instantiateDependencies();
 
     this.logger?.info('Application container started.');
+  }
+
+  private instantiateDependencies() {
+    const order = this.graph.getLoadOrder();
+
+    for (let index = 0; index < order.length; index++) {
+      const node = this.graph.getNode(order[index]);
+      console.log('node: ', node);
+    }
   }
 }
