@@ -1,3 +1,6 @@
+/**
+ * Injection scope enum.
+ */
 export enum Scope {
   /**
    * Singleton objects are the same for every request (created once).
