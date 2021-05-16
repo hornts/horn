@@ -3,6 +3,7 @@ import { ApplicationContainer } from '@hornts/core';
 
 describe('ApplicationContainer', () => {
   let container: ApplicationContainer;
+
   @Injectable({ scope: Scope.TRANSIENT })
   class ServiceB {}
 
@@ -12,7 +13,7 @@ describe('ApplicationContainer', () => {
   }
 
   @Module({
-    injectables: [ServiceA],
+    injectables: [ServiceA, ServiceB],
   })
   class AppModule {}
 

@@ -1,7 +1,9 @@
 import { LoggerService, Type } from '@hornts/common';
 
+import { ResolveDependencyError } from '../errors';
 import { DependencyGraph } from './dependency-graph';
 import { Injectable } from './injectable';
+import { Module } from './module';
 import { Registry } from './registry';
 
 export class ApplicationContainer {
@@ -9,7 +11,7 @@ export class ApplicationContainer {
 
   private readonly registry: Registry;
 
-  constructor(private readonly rootModule: Type<any>, private readonly logger: LoggerService) {
+  constructor(private readonly rootModuleRef: Type<any>, private readonly logger: LoggerService) {
     this.graph = new DependencyGraph();
     this.registry = new Registry();
   }
@@ -19,7 +21,7 @@ export class ApplicationContainer {
    */
   public initialise() {
     this.logger?.info('Building dependency graph...');
-    this.graph.build(this.rootModule);
+    this.graph.build(this.rootModuleRef);
 
     this.logger?.info('Instantiating dependencies...');
     this.instantiateDependencies();
@@ -31,13 +33,13 @@ export class ApplicationContainer {
     const order = this.graph.getLoadOrder();
 
     for (let index = 0; index < order.length; index++) {
-      const node = this.graph.getNode(order[index]);
+      const node = this.graph.getNodeData(order[index]);
       if (node instanceof Injectable) {
         const instance = this.instantiateInjectable(node);
         console.log('instance: ', instance);
+      } else if (node instanceof Module) {
+        console.log('node: ', node);
       }
-
-      console.log('node: ', node);
     }
   }
 
@@ -45,7 +47,15 @@ export class ApplicationContainer {
     const injectables = [];
     const dependencies = injectable.getDependencies();
     for (let index = 0; index < dependencies.length; index++) {
-      const injectable = this.registry.getInjectable(`injectable:${dependencies[index].name}`);
+      const token = `injectable:${dependencies[index].name}`;
+      const injectable = this.registry.getInjectable(token);
+
+      if (!injectable) {
+        throw new ResolveDependencyError(token, injectable.getToken());
+      }
+
+      //TODO: check scope here and if TRANSIENT or SINGLETON init for module
+
       injectables.push(injectable);
     }
 

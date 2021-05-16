@@ -7,9 +7,15 @@ export class Module {
 
   private readonly meta: ModuleOptions;
 
+  private readonly injectables: Map<string, Type<any>>;
+
   constructor(private readonly ref: Type<any>) {
     this.token = `module:${ref.name}`;
     this.meta = Reflection.getModuleOptions(ref);
+  }
+
+  public addInjectable(token: string, injectable: Type<any>) {
+    this.injectables.set(token, injectable);
   }
 
   public getToken(): string {

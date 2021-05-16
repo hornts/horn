@@ -4,12 +4,14 @@ import { DepGraph, DepGraphCycleError } from 'dependency-graph';
 import { CircularDependencyError } from '../../errors';
 import { BasicInjectable, Injectable } from '../injectable';
 import { Module } from '../module';
+import { Node } from './node';
 
 export class DependencyGraph {
-  private readonly graph: DepGraph<BasicInjectable<any>>;
+  private readonly graph: DepGraph<Node<any>>;
+  // private readonly graph: DepGraph<BasicInjectable<any>>;
 
   constructor() {
-    this.graph = new DepGraph<BasicInjectable<any>>();
+    this.graph = new DepGraph<Node<any>>();
   }
 
   public build(ref: Type<any>) {
@@ -28,8 +30,10 @@ export class DependencyGraph {
     }
   }
 
-  public getNode(token: string): BasicInjectable<any> | string {
-    return this.graph.getNodeData(token);
+  public getNodeData(token: string): BasicInjectable<any> | Module {
+    const node = this.graph.getNodeData(token);
+
+    return node.getData();
   }
 
   private loadModuleDependencies(ref: Type<any>) {
@@ -38,7 +42,7 @@ export class DependencyGraph {
     const token = module.getToken();
     const meta = module.getMeta();
 
-    this.graph.addNode(token);
+    this.graph.addNode(token, new Node(module));
 
     this.loadInjectables(token, meta.injectables);
 
@@ -59,7 +63,7 @@ export class DependencyGraph {
       const token = injectable.getToken();
 
       if (!this.graph.hasNode(token)) {
-        this.graph.addNode(token, injectable);
+        this.graph.addNode(token, new Node(injectable));
         this.loadInjectables(token, injectable.getDependencies());
       }
 
