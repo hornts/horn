@@ -1,24 +1,40 @@
 import { Injectable, Module } from '@hornts/common';
-import { DependencyGraph } from '@hornts/core';
+import { CircularDependencyError, DependencyGraph } from '@hornts/core';
 
 describe('DependencyGraph', () => {
   let graph: DependencyGraph;
 
-  @Injectable()
-  class ServiceA {}
-
-  @Module({
-    injectables: [ServiceA],
-  })
-  class ModuleA {}
-
-  beforeAll(() => {
+  beforeEach(() => {
     graph = new DependencyGraph();
   });
 
   it('should build dependency graph', () => {
+    @Injectable()
+    class ServiceA {}
+
+    @Module({
+      injectables: [ServiceA],
+    })
+    class ModuleA {}
+
     graph.build(ModuleA);
 
     expect(graph.getLoadOrder()).toStrictEqual(['injectable:ServiceA', 'module:ModuleA']);
+  });
+
+  it('should throw CircularDependencyError', () => {
+    @Injectable()
+    class ServiceA {
+      constructor(private readonly service: ServiceA) {}
+    }
+
+    @Module({
+      injectables: [ServiceA],
+    })
+    class ModuleA {}
+
+    graph.build(ModuleA);
+
+    expect(() => graph.getLoadOrder()).toThrowError(CircularDependencyError);
   });
 });

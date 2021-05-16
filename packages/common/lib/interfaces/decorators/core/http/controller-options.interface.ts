@@ -1,3 +1,5 @@
+import { Scope } from '../../../scope.interface';
+
 export interface ControllerOptions {
-  root: string;
+  scope?: Scope;
 }

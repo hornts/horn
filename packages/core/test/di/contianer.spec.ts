@@ -1,10 +1,9 @@
-import { Injectable, LoggerService, Module } from '@hornts/common';
+import { Injectable, LoggerService, Module, Scope } from '@hornts/common';
 import { ApplicationContainer } from '@hornts/core';
 
 describe('ApplicationContainer', () => {
   let container: ApplicationContainer;
-
-  @Injectable()
+  @Injectable({ scope: Scope.TRANSIENT })
   class ServiceB {}
 
   @Injectable()

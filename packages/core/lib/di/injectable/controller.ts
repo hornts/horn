@@ -1,0 +1,10 @@
+import { ControllerOptions, Type } from '@hornts/common';
+
+import { Reflection } from '../reflection';
+import { BasicInjectable } from './basic-injectable';
+
+export class Controller extends BasicInjectable<ControllerOptions> {
+  constructor(ref: Type<any>) {
+    super(ref, `controller:${ref.name}`, Reflection.getControllerOptions(ref));
+  }
+}

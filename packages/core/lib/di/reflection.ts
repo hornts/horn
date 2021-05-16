@@ -1,4 +1,6 @@
 import {
+  CONTROLLER_OPTIONS_METADATA,
+  ControllerOptions,
   INJECTABLE_OPTIONS_METADATA,
   InjectableOptions,
   MODULE_OPTIONS_METADATA,
@@ -31,6 +33,18 @@ export class Reflection {
    */
   public static getInjectableOptions<T>(constructor: Type<T>): InjectableOptions {
     const meta = Reflect.getOwnMetadata(INJECTABLE_OPTIONS_METADATA, constructor);
+
+    return {
+      scope: Scope.SINGLETON,
+      ...meta,
+    };
+  }
+
+  /**
+   * Returns controller options.
+   */
+  public static getControllerOptions<T>(constructor: Type<T>): ControllerOptions {
+    const meta = Reflect.getOwnMetadata(CONTROLLER_OPTIONS_METADATA, constructor);
 
     return {
       scope: Scope.SINGLETON,
