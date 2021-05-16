@@ -1,8 +1,8 @@
-import { Type } from '@hornts/common';
+import { BasicInjectableOptions, Scope, Type } from '@hornts/common';
 
 import { Reflection } from '../reflection';
 
-export abstract class BasicInjectable<T> {
+export abstract class BasicInjectable<T extends BasicInjectableOptions> {
   private instance?: any;
 
   private readonly dependencies: Type<any>[];
@@ -10,7 +10,7 @@ export abstract class BasicInjectable<T> {
   constructor(
     private readonly ref: Type<any>,
     private readonly token: string,
-    private readonly meta?: T
+    private readonly meta: T
   ) {
     this.dependencies = Reflection.getParamTypes(ref);
   }
@@ -19,8 +19,8 @@ export abstract class BasicInjectable<T> {
     return this.token;
   }
 
-  public getMeta(): T {
-    return this.meta;
+  public getScope(): Scope {
+    return this.meta.scope;
   }
 
   public instantiate(dependencies: any[] = []): any {

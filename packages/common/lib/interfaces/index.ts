@@ -1,3 +1,2 @@
-export * from './decorators';
-export * from './scope.interface';
+export * from './core';
 export * from './type.interface';

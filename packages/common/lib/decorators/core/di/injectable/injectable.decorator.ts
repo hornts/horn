@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 
-import { INJECTABLE_OPTIONS_METADATA } from '../../../constants';
-import { InjectableOptions } from '../../../interfaces';
+import { INJECTABLE_OPTIONS_METADATA } from '../../../../constants';
+import { InjectableOptions } from '../../../../interfaces';
 
 /**
  * Injectable decorator.

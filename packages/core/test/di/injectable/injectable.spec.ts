@@ -18,8 +18,8 @@ describe('BasicInjectable', () => {
     expect(injectable).toBeInstanceOf(Injectable);
   });
 
-  it('should return meta', () => {
-    expect(injectable.getMeta()).toStrictEqual({ scope: Scope.SINGLETON });
+  it('should return scope', () => {
+    expect(injectable.getScope()).toStrictEqual(Scope.SINGLETON);
   });
 
   it('should return token', () => {

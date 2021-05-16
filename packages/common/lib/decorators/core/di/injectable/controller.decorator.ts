@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 
-import { CONTROLLER_OPTIONS_METADATA } from '../../../constants';
-import { ControllerOptions } from '../../../interfaces';
+import { CONTROLLER_OPTIONS_METADATA } from '../../../../constants';
+import { ControllerOptions } from '../../../../interfaces';
 
 /**
  * Controller decorator.
