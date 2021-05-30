@@ -24,8 +24,10 @@ export abstract class BasicInjectable<T extends BasicInjectableOptions> {
   }
 
   public instantiate(dependencies: any[] = []): any {
-    // eslint-disable-next-line new-cap
-    this.instance = new this.ref(...dependencies);
+    if (!this.instance) {
+      // eslint-disable-next-line new-cap
+      this.instance = new this.ref(...dependencies);
+    }
 
     return this.instance;
   }

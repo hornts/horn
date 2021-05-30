@@ -6,9 +6,11 @@ import { BasicInjectable, Injectable } from '../injectable';
 import { Module } from '../module';
 import { Node } from './node';
 
+/**
+ * Represents dependency graph.
+ */
 export class DependencyGraph {
   private readonly graph: DepGraph<Node<any>>;
-  // private readonly graph: DepGraph<BasicInjectable<any>>;
 
   constructor() {
     this.graph = new DepGraph<Node<any>>();
@@ -18,7 +20,21 @@ export class DependencyGraph {
     this.loadModuleDependencies(ref);
   }
 
-  public getLoadOrder(): string[] {
+  public getModulesLoadOrder(): string[] {
+    return this.getLoadOrder().filter((item) => item.startsWith('module:'));
+  }
+
+  public getDependenciesOf(token: string): string[] {
+    return this.graph.dependenciesOf(token);
+  }
+
+  public getNodeData(token: string): BasicInjectable<any> | Module {
+    const node = this.graph.getNodeData(token);
+
+    return node.getData();
+  }
+
+  private getLoadOrder(): string[] {
     try {
       return this.graph.overallOrder();
     } catch (error) {
@@ -30,12 +46,6 @@ export class DependencyGraph {
     }
   }
 
-  public getNodeData(token: string): BasicInjectable<any> | Module {
-    const node = this.graph.getNodeData(token);
-
-    return node.getData();
-  }
-
   private loadModuleDependencies(ref: Type<any>) {
     const module = new Module(ref);
 
@@ -44,7 +54,9 @@ export class DependencyGraph {
 
     this.graph.addNode(token, new Node(module));
 
-    this.loadInjectables(token, meta.injectables);
+    const injectables = meta.injectables.concat(meta.controllers);
+
+    this.loadInjectables(token, injectables);
 
     for (let index = 0; index < meta.imports.length; index++) {
       const importedModuleToken = `module:${meta.imports[index].name}`;

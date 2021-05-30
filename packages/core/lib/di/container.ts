@@ -4,16 +4,12 @@ import { ResolveDependencyError } from '../errors';
 import { DependencyGraph } from './dependency-graph';
 import { Injectable } from './injectable';
 import { Module } from './module';
-import { Registry } from './registry';
 
 export class ApplicationContainer {
   private readonly graph: DependencyGraph;
 
-  private readonly registry: Registry;
-
   constructor(private readonly rootModuleRef: Type<any>, private readonly logger: LoggerService) {
     this.graph = new DependencyGraph();
-    this.registry = new Registry();
   }
 
   /**
@@ -30,38 +26,46 @@ export class ApplicationContainer {
   }
 
   private instantiateDependencies() {
-    const order = this.graph.getLoadOrder();
+    const order = this.graph.getModulesLoadOrder();
 
     for (let index = 0; index < order.length; index++) {
       const node = this.graph.getNodeData(order[index]);
-      if (node instanceof Injectable) {
-        const instance = this.instantiateInjectable(node);
-        console.log('instance: ', instance);
-      } else if (node instanceof Module) {
-        console.log('node: ', node);
+      if (node instanceof Module) {
+        this.instantiateModuleDependencies(node);
+      } else {
+        throw new Error('something whent wrong');
       }
     }
   }
 
-  private instantiateInjectable(injectable: Injectable): any {
+  private instantiateModuleDependencies(module: Module) {
+    const dependencies = this.graph.getDependenciesOf(module.getToken());
+
+    for (let index = 0; index < dependencies.length; index++) {
+      const injectable = this.graph.getNodeData(dependencies[index]);
+      if (injectable instanceof Injectable) {
+        this.instantiateInjectable(module, injectable);
+      }
+    }
+  }
+
+  private instantiateInjectable(module: Module, injectable: Injectable) {
     const injectables = [];
     const dependencies = injectable.getDependencies();
     for (let index = 0; index < dependencies.length; index++) {
       const token = `injectable:${dependencies[index].name}`;
-      const injectable = this.registry.getInjectable(token);
+      const instance = module.getInjectable(token);
 
-      if (!injectable) {
+      if (!instance) {
         throw new ResolveDependencyError(token, injectable.getToken());
       }
 
-      //TODO: check scope here and if TRANSIENT or SINGLETON init for module
-
-      injectables.push(injectable);
+      injectables.push(instance);
     }
 
     const instance = injectable.instantiate(injectables);
 
-    this.registry.setInjectable(injectable.getToken(), instance);
+    module.setInjectable(injectable.getToken(), instance);
 
     return instance;
   }
