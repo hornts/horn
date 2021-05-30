@@ -1,5 +1,6 @@
 import { ModuleOptions, Type } from '@hornts/common';
 
+import { ResolveDependencyError } from '../errors';
 import { Reflection } from './reflection';
 
 export class Module {
@@ -9,9 +10,7 @@ export class Module {
 
   private readonly injectables = new Map<string, any>();
 
-  private readonly imports = new Map<string, any>();
-
-  private readonly exports = new Map<string, any>();
+  private readonly imports = new Map<string, Module>();
 
   constructor(private readonly ref: Type<any>) {
     this.token = `module:${ref.name}`;
@@ -34,23 +33,64 @@ export class Module {
     this.imports.set(token, module);
   }
 
-  public getImport(token: string): any {
+  public getImport(token: string): Module | undefined {
     return this.imports.get(token);
   }
 
-  public setExport(token: string, injectable: any) {
-    this.exports.set(token, injectable);
+  public loadInjectableInstance(token: string): any {
+    let injectable = this.injectables.get(token);
+
+    if (!injectable && this.isInjectableImported(token)) {
+      const injectables = [];
+      const dependencies = injectable.getDependencies();
+      console.log('dependencies: ', dependencies);
+      for (let index = 0; index < dependencies.length; index++) {
+        const token = `injectable:${dependencies[index].name}`;
+        const instance = this.loadInjectableInstance(token);
+        console.log('instance: ', instance);
+
+        injectables.push(instance);
+      }
+
+      injectable = injectable.instantiate(injectables);
+    } else if (!injectable) {
+      // Trying to laod injectable from imported modules
+
+      // eslint-disable-next-line no-restricted-syntax
+      for (const [, module] of this.imports.entries()) {
+        injectable = module.loadInjectableInstance(token);
+        if (injectable && module.isInjectableExported(token)) {
+          return injectable;
+        }
+      }
+
+      throw new ResolveDependencyError(this.token, token);
+    }
+
+    return injectable;
   }
 
-  public getExport(token: string): any {
-    return this.exports.get(token);
+  public isInjectableExported(token: string): boolean {
+    const injectable = this.injectables.get(token);
+
+    for (let index = 0; index < this.meta.exports.length; index++) {
+      if (injectable instanceof this.meta.exports[index]) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
-  public setInjectable(token: string, injectable: any) {
-    this.injectables.set(token, injectable);
-  }
+  private isInjectableImported(token: string): boolean {
+    const { injectables } = this.meta;
 
-  public getInjectable(token: string): any {
-    return this.injectables.get(token);
+    for (let index = 0; index < injectables.length; index++) {
+      if (injectables[index].name === token.split('injectable:')[1]) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }

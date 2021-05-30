@@ -19,7 +19,7 @@ describe('DependencyGraph', () => {
 
     graph.build(ModuleA);
 
-    expect(graph.getLoadOrder()).toStrictEqual(['injectable:ServiceA', 'module:ModuleA']);
+    expect(graph.getModulesLoadOrder()).toStrictEqual(['module:ModuleA']);
   });
 
   it('should throw CircularDependencyError', () => {
@@ -35,6 +35,6 @@ describe('DependencyGraph', () => {
 
     graph.build(ModuleA);
 
-    expect(() => graph.getLoadOrder()).toThrowError(CircularDependencyError);
+    expect(() => graph.getModulesLoadOrder()).toThrowError(CircularDependencyError);
   });
 });
