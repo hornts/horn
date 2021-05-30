@@ -27,7 +27,7 @@ describe('ApplicationContainer', () => {
     container.initialise();
   });
 
-  it('shoult throw ResolveDependencyError', () => {
+  it('should throw ResolveDependencyError if ModuleA does not export ServiceA', () => {
     @Injectable({ scope: Scope.SINGLETON })
     class ServiceB {}
 

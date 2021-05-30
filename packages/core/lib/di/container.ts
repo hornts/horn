@@ -32,8 +32,6 @@ export class ApplicationContainer {
       const node = this.graph.getNodeData(order[index]);
       if (node instanceof Module) {
         this.instantiateModuleDependencies(node);
-      } else {
-        throw new Error('something whent wrong');
       }
     }
   }
@@ -42,9 +40,11 @@ export class ApplicationContainer {
     const dependencies = this.graph.getDependenciesOf(module.getToken());
 
     for (let index = 0; index < dependencies.length; index++) {
-      const injectable = this.graph.getNodeData(dependencies[index]);
-      if (injectable instanceof Injectable) {
-        this.instantiateInjectable(module, injectable);
+      const node = this.graph.getNodeData(dependencies[index]);
+      if (node instanceof Injectable) {
+        this.instantiateInjectable(module, node);
+      } else if (node instanceof Module) {
+        module.setImport(node.getToken(), node);
       }
     }
   }
