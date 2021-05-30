@@ -31,21 +31,30 @@ export class ApplicationContainer {
       const node = this.graph.getNodeData(order[index]);
       if (node instanceof Module) {
         this.instantiateModuleDependencies(node);
-        console.log('node: ', node);
       }
     }
   }
 
   private instantiateModuleDependencies(module: Module) {
     const dependencies = this.graph.getDependenciesOf(module.getToken());
-    console.log('Module: dependencies: ', dependencies);
 
-    for (let index = 0; index < dependencies.length; index++) {
-      const node = this.graph.getNodeData(dependencies[index]);
-      if (node instanceof Injectable) {
-        module.loadInjectableInstance(node.getToken());
-      } else if (node instanceof Module) {
+    const modules = dependencies.filter((item) => item.startsWith('module:'));
+
+    const injectables = dependencies.filter(
+      (item) => item.startsWith('injectable:') || item.startsWith('controller:')
+    );
+
+    for (let index = 0; index < modules.length; index++) {
+      const node = this.graph.getNodeData(modules[index]);
+      if (node instanceof Module) {
         module.setImport(node.getToken(), node);
+      }
+    }
+
+    for (let index = 0; index < injectables.length; index++) {
+      const node = this.graph.getNodeData(injectables[index]);
+      if (node instanceof Injectable) {
+        module.loadInjectableInstance(node);
       }
     }
   }

@@ -5,15 +5,24 @@ describe('ApplicationContainer', () => {
   let container: ApplicationContainer;
 
   it('should create container', () => {
+    @Injectable()
+    class ServiceC {}
+    @Module({
+      injectables: [ServiceC],
+      exports: [ServiceC],
+    })
+    class ModuleA {}
+
     @Injectable({ scope: Scope.SINGLETON })
     class ServiceB {}
 
     @Injectable()
     class ServiceA {
-      constructor(private readonly service: ServiceB) {}
+      constructor(private readonly serviceb: ServiceB, private readonly servicec: ServiceC) {}
     }
 
     @Module({
+      imports: [ModuleA],
       injectables: [ServiceA, ServiceB],
     })
     class AppModule {}

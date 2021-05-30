@@ -1,6 +1,7 @@
 import { ModuleOptions, Type } from '@hornts/common';
 
 import { ResolveDependencyError } from '../errors';
+import { Injectable } from './injectable';
 import { Reflection } from './reflection';
 
 export class Module {
@@ -37,37 +38,42 @@ export class Module {
     return this.imports.get(token);
   }
 
-  public loadInjectableInstance(token: string): any {
-    let injectable = this.injectables.get(token);
+  public loadInjectableInstance(injectable: Injectable): any {
+    const token = injectable.getToken();
+    let instance = this.injectables.get(token);
 
-    if (!injectable && this.isInjectableImported(token)) {
+    if (!instance && this.isInjectableImported(token)) {
       const injectables = [];
       const dependencies = injectable.getDependencies();
-      console.log('dependencies: ', dependencies);
       for (let index = 0; index < dependencies.length; index++) {
-        const token = `injectable:${dependencies[index].name}`;
-        const instance = this.loadInjectableInstance(token);
-        console.log('instance: ', instance);
+        const injectable = new Injectable(dependencies[index]);
+        const instance = this.loadInjectableInstance(injectable);
 
         injectables.push(instance);
       }
 
-      injectable = injectable.instantiate(injectables);
-    } else if (!injectable) {
+      instance = injectable.instantiate(injectables);
+    } else if (!instance) {
       // Trying to laod injectable from imported modules
 
       // eslint-disable-next-line no-restricted-syntax
       for (const [, module] of this.imports.entries()) {
-        injectable = module.loadInjectableInstance(token);
-        if (injectable && module.isInjectableExported(token)) {
-          return injectable;
+        instance = module.loadInjectableInstance(injectable);
+        if (instance && module.isInjectableExported(token)) {
+          return instance;
         }
       }
 
       throw new ResolveDependencyError(this.token, token);
     }
 
-    return injectable;
+    this.setInjectable(token, instance);
+
+    return instance;
+  }
+
+  public setInjectable(token: string, injectable: any) {
+    this.injectables.set(token, injectable);
   }
 
   public isInjectableExported(token: string): boolean {
