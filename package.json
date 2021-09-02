@@ -49,7 +49,7 @@
     "@release-it/bumper": "3.0.1",
     "@release-it/conventional-changelog": "3.0.0",
     "@types/express": "4.17.13",
-    "@types/jest": "26.0.24",
+    "@types/jest": "27.0.1",
     "@types/node": "14.17.2",
     "@types/pino": "6.3.11",
     "@typescript-eslint/eslint-plugin": "4.30.0",
