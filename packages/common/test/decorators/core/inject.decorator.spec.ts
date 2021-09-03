@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import { Inject, INJECT_TOKEN_METADATA } from '@hornts/common';
+import { Inject, INJECT_TOKEN_METADATA } from '../../../lib';
 
 describe('@Inject', () => {
   it('should create class with @Inject decorator', () => {

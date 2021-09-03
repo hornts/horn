@@ -1,5 +1,6 @@
 import { Injectable, LoggerService, Module, Scope } from '@hornts/common';
-import { ApplicationContainer, ResolveDependencyError } from '@hornts/core';
+
+import { ApplicationContainer, ResolveDependencyError } from '../../lib';
 
 describe('ApplicationContainer', () => {
   let container: ApplicationContainer;
@@ -27,7 +28,7 @@ describe('ApplicationContainer', () => {
     })
     class AppModule {}
 
-    container = new ApplicationContainer(AppModule, (console as unknown) as LoggerService);
+    container = new ApplicationContainer(AppModule, console as unknown as LoggerService);
 
     expect(container).toBeInstanceOf(ApplicationContainer);
   });
@@ -60,7 +61,7 @@ describe('ApplicationContainer', () => {
     })
     class AppModule {}
 
-    container = new ApplicationContainer(AppModule, (console as unknown) as LoggerService);
+    container = new ApplicationContainer(AppModule, console as unknown as LoggerService);
     expect(() => container.initialise()).toThrowError(ResolveDependencyError);
   });
 });

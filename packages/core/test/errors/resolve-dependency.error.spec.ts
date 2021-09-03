@@ -1,4 +1,4 @@
-import { ResolveDependencyError } from '@hornts/core';
+import { ResolveDependencyError } from '../../lib';
 
 describe('ResolveDependencyError', () => {
   it('should equal ResolveDependencyError', () => {

@@ -1,5 +1,6 @@
 import { Injectable as InjectableDecorator, Scope } from '@hornts/common';
-import { Injectable } from '@hornts/core';
+
+import { Injectable } from '../../../lib';
 
 describe('BasicInjectable', () => {
   let injectable: Injectable;

@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import { Injectable, Scope } from '@hornts/common';
+import { Injectable, Scope } from '../../../lib';
 
 describe('@Injectable', () => {
   it('should create injectable class with no options', () => {

@@ -1,5 +1,6 @@
 import { Module as ModuleDecorator } from '@hornts/common';
-import { Module } from '@hornts/core';
+
+import { Module } from '../../lib';
 
 describe('Module', () => {
   let module: Module;

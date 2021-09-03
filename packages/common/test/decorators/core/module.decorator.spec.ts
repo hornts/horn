@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import { Module } from '@hornts/common';
+import { Module } from '../../../lib';
 
 describe('@Module', () => {
   it('should create module class with no options', () => {

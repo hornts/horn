@@ -1,5 +1,6 @@
 import { Injectable, Module } from '@hornts/common';
-import { CircularDependencyError, DependencyGraph } from '@hornts/core';
+
+import { CircularDependencyError, DependencyGraph } from '../../../lib';
 
 describe('DependencyGraph', () => {
   let graph: DependencyGraph;

@@ -1,5 +1,6 @@
 import { Injectable, Module, Scope } from '@hornts/common';
-import { Reflection } from '@hornts/core';
+
+import { Reflection } from '../../lib';
 
 describe('Reflection', () => {
   it('should return empty ModuleOptions when no options passed', () => {

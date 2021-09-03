@@ -1,4 +1,4 @@
-import { CircularDependencyError } from '@hornts/core';
+import { CircularDependencyError } from '../../lib';
 
 describe('CircularDependencyError', () => {
   it('should equal CircularDependencyError', () => {
