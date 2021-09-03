@@ -1,3 +1,15 @@
+### [0.0.3](https://github.com/hornts/horn/compare/0.0.2...0.0.3) (2021-09-03)
+
+
+### Features
+
+* publish on release ([9e9913b](https://github.com/hornts/horn/commit/9e9913bb43ca91876bbafd728108349efb6c71ca))
+
+
+### Bug Fixes
+
+* enable default logger ([8cd7e71](https://github.com/hornts/horn/commit/8cd7e7141a3275b4cf6814560927381f52940b61))
+
 ### [0.0.2](https://github.com/hornts/horn/compare/0.0.1...0.0.2) (2021-09-03)
 
 
