@@ -10,9 +10,8 @@ export class HornFactory {
    */
   public static async create<T extends HttpAdapter>(
     rootModule: Type<any>,
-    httpAdapter: T,
-    options?: HornOptions
+    options?: HornOptions<T>
   ): Promise<HornApplication<T>> {
-    return new HornApplication(rootModule, httpAdapter, options);
+    return new HornApplication(rootModule, options);
   }
 }
