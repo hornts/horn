@@ -8,7 +8,7 @@ export interface HornOptions<T extends HttpAdapter> {
    * Determines whether the logger is on or off.
    * @default true
    */
-  logger?: boolean;
+  logger?: boolean | Logger;
 
   /**
    * HTTP adapter
@@ -24,7 +24,9 @@ export class HornApplication<T extends HttpAdapter> {
   private readonly http: T;
 
   constructor(rootModule: Type<any>, options: HornOptions<T> = { logger: true }) {
-    if (options.logger) {
+    if (options?.logger instanceof Logger) {
+      this.logger = options.logger;
+    } else if (options?.logger === true) {
       this.logger = new Logger({
         name: 'Horn',
         prettyPrint: {
