@@ -27,6 +27,9 @@
         ]
       },
       "infile": "CHANGELOG.md"
+    },
+    "@release-it/bumper": {
+      "out": ["packages/**/package*.json"]
     }
   },
   "npm": {
