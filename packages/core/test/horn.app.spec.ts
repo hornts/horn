@@ -1,7 +1,8 @@
 import { Logger, Module } from '@hornts/common';
-import { ExpressAdapter } from '@hornts/http-express';
 
-import { HornApplication } from '../lib';
+import { HornApplication, HttpAdapter } from '../lib';
+
+class MockedHttpAdapter extends HttpAdapter {}
 
 describe('HornApplication', () => {
   it('should create horn application without options', () => {
@@ -36,7 +37,7 @@ describe('HornApplication', () => {
 
     const loggerSpy = jest.spyOn(Logger.prototype, 'info');
 
-    const http = new ExpressAdapter();
+    const http = new MockedHttpAdapter({});
 
     const httpSpy = jest.spyOn(http, 'listen').mockImplementation(() => Promise.resolve());
 
