@@ -30,7 +30,7 @@
     "format:write": "nx format:write",
     "format:check": "nx format:check",
     "release": "release-it",
-    "prepublish": "npm run build:all && npm run test:all",
+    "prepublishOnly": "npm run build:all && npm run test:all",
     "publish": "nx run-many --all --target=publish",
     "update": "nx migrate latest",
     "workspace-generator": "nx workspace-generator",

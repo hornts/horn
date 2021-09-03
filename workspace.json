@@ -140,7 +140,13 @@
             "assets": ["packages/http/http-express/*.md"],
             "buildableProjectDepsInPackageJsonType": "peerDependencies"
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": ["{options.outputPath}"],
+          "dependsOn": [
+            {
+              "target": "build",
+              "projects": "dependencies"
+            }
+          ]
         },
         "publish": {
           "builder": "@nrwl/workspace:run-commands",
@@ -190,7 +196,13 @@
             "assets": ["packages/http/http-fastify/*.md"],
             "buildableProjectDepsInPackageJsonType": "peerDependencies"
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": ["{options.outputPath}"],
+          "dependsOn": [
+            {
+              "target": "build",
+              "projects": "dependencies"
+            }
+          ]
         },
         "publish": {
           "builder": "@nrwl/workspace:run-commands",
