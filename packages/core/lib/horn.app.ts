@@ -5,13 +5,36 @@ import { HttpAdapter } from './http';
 
 export interface HornOptions<T extends HttpAdapter> {
   /**
-   * Determines whether the logger is on or off.
+   * Logger instance used by Horn.
    * @default true
+   *
+   * @example <caption>You can pass your custom logger:</caption>
+   * import { LoggerService } from '@hornts/common';
+   *
+   * class CustomLogger implements LoggerService { ... }
+   * logger: new CustomLogger()
+   *
+   * @example <caption>You can disable logger for Horn:</caption>
+   * logger: false
    */
   logger?: boolean | Logger;
 
   /**
-   * HTTP adapter
+   * HTTP adapter used by Horn.
+   *
+   * @example <caption>You can pass your custom HTTP adapter:</caption>
+   * import { HttpAdapter } from '@hornts/core';
+   *
+   * class CustomAdapter extends HttpAdapter { ... };
+   *
+   * http: new CustomAdapter();
+   *
+   * @example <caption>You can pass official HTTP adapters:</caption>
+   * import { ExpressAdapter } from '@hornts/http-express';
+   * import { FastifyAdapter } from '@hornts/http-fastify';
+   *
+   * http: new ExpressAdapter();
+   * http: new FastifyAdapter();
    */
   http?: T;
 }
@@ -23,10 +46,10 @@ export class HornApplication<T extends HttpAdapter> {
 
   private readonly http: T;
 
-  constructor(rootModule: Type<any>, options: HornOptions<T> = { logger: true }) {
+  constructor(rootModule: Type<any>, options?: HornOptions<T>) {
     if (options?.logger instanceof Logger) {
       this.logger = options.logger;
-    } else if (options?.logger === true) {
+    } else if (options?.logger !== false) {
       this.logger = new Logger({
         name: 'Horn',
         prettyPrint: {
