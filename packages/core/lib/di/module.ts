@@ -64,7 +64,7 @@ export class Module {
         }
       }
 
-      throw new ResolveDependencyError(this.token, token);
+      throw new ResolveDependencyError(token, this.token);
     }
 
     this.setInjectable(token, instance);

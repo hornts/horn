@@ -7,9 +7,12 @@ describe('ApplicationContainer', () => {
 
   it('should create container', () => {
     @Injectable()
+    class ServiceD {}
+
+    @Injectable()
     class ServiceC {}
     @Module({
-      injectables: [ServiceC],
+      injectables: [ServiceC, ServiceD],
       exports: [ServiceC],
     })
     class ModuleA {}
@@ -31,9 +34,7 @@ describe('ApplicationContainer', () => {
     container = new ApplicationContainer(AppModule, console as unknown as LoggerService);
 
     expect(container).toBeInstanceOf(ApplicationContainer);
-  });
 
-  it('should init application container', () => {
     container.initialise();
   });
 

@@ -18,9 +18,14 @@ describe('DependencyGraph', () => {
     })
     class ModuleA {}
 
-    graph.build(ModuleA);
+    @Module({
+      imports: [ModuleA],
+    })
+    class AppModule {}
 
-    expect(graph.getModulesLoadOrder()).toStrictEqual(['module:ModuleA']);
+    graph.build(AppModule);
+
+    expect(graph.getModulesLoadOrder()).toStrictEqual(['module:ModuleA', 'module:AppModule']);
   });
 
   it('should throw CircularDependencyError', () => {
