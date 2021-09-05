@@ -1,14 +1,10 @@
-import { Type } from '@hornts/common';
-import { DepGraph, DepGraphCycleError } from 'dependency-graph';
+import { ModuleOptions, Type } from '@hornts/common';
+import { DepGraph } from 'dependency-graph';
 
-import { CircularDependencyError } from '../../errors';
-import { BasicInjectable, Injectable } from '../injectable';
+import { Controller, Injectable } from '../injectable';
 import { Module } from '../module';
 import { Node } from './node';
 
-/**
- * Represents dependency graph.
- */
 export class DependencyGraph {
   private readonly graph: DepGraph<Node<any>>;
 
@@ -17,36 +13,10 @@ export class DependencyGraph {
   }
 
   public build(ref: Type<any>) {
-    this.loadModuleDependencies(ref);
+    this.loadDependencies(ref);
   }
 
-  public getModulesLoadOrder(): string[] {
-    return this.getLoadOrder().filter((item) => item.startsWith('module:'));
-  }
-
-  public getDependenciesOf(token: string): string[] {
-    return this.graph.dependenciesOf(token);
-  }
-
-  public getNodeData(token: string): BasicInjectable<any> | Module {
-    const node = this.graph.getNodeData(token);
-
-    return node.getData();
-  }
-
-  private getLoadOrder(): string[] {
-    try {
-      return this.graph.overallOrder();
-    } catch (error) {
-      if (error instanceof DepGraphCycleError) {
-        throw new CircularDependencyError(error.message);
-      } else {
-        throw error;
-      }
-    }
-  }
-
-  private loadModuleDependencies(ref: Type<any>) {
+  private loadDependencies(ref: Type<any>) {
     const module = new Module(ref);
 
     const token = module.getToken();
@@ -54,31 +24,32 @@ export class DependencyGraph {
 
     this.graph.addNode(token, new Node(module));
 
-    const injectables = meta.injectables.concat(meta.controllers);
-
-    this.loadInjectables(token, injectables);
+    this.loadInjectables(token, meta);
+    this.loadControllers(token, meta);
 
     for (let index = 0; index < meta.imports.length; index++) {
-      const importedModuleToken = `module:${meta.imports[index].name}`;
-
-      if (!this.graph.hasNode(importedModuleToken)) {
-        this.loadModuleDependencies(meta.imports[index]);
-      }
-
-      this.graph.addDependency(token, importedModuleToken);
+      this.loadDependencies(meta.imports[index]);
     }
   }
 
-  private loadInjectables(rootToken: string, injectables: Type<any>[]) {
+  private loadInjectables(rootToken: string, { injectables }: ModuleOptions) {
     for (let index = 0; index < injectables.length; index++) {
       const injectable = new Injectable(injectables[index]);
+
       const token = injectable.getToken();
 
-      if (!this.graph.hasNode(token)) {
-        this.graph.addNode(token, new Node(injectable));
-        this.loadInjectables(token, injectable.getDependencies());
-      }
+      this.graph.addNode(token, new Node(injectable));
+      this.graph.addDependency(rootToken, token);
+    }
+  }
 
+  private loadControllers(rootToken: string, { controllers }: ModuleOptions) {
+    for (let index = 0; index < controllers.length; index++) {
+      const controller = new Controller(controllers[index]);
+
+      const token = controller.getToken();
+
+      this.graph.addNode(token, new Node(controller));
       this.graph.addDependency(rootToken, token);
     }
   }

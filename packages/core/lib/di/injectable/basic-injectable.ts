@@ -1,18 +1,25 @@
 import { BasicInjectableOptions, Scope, Type } from '@hornts/common';
+import * as uuid from 'uuid';
 
 import { Reflection } from '../reflection';
 
 export abstract class BasicInjectable<T extends BasicInjectableOptions> {
-  private instance?: any;
+  private readonly name: string;
+
+  private readonly token: string;
 
   private readonly dependencies: Type<any>[];
 
-  constructor(
-    private readonly ref: Type<any>,
-    private readonly token: string,
-    private readonly meta: T
-  ) {
+  private instance?: any;
+
+  constructor(private readonly ref: Type<any>, private readonly meta: T) {
+    this.name = ref.name;
+    this.token = uuid.v4();
     this.dependencies = Reflection.getParamTypes(ref);
+  }
+
+  public getName(): string {
+    return this.name;
   }
 
   public getToken(): string {
@@ -29,7 +36,7 @@ export abstract class BasicInjectable<T extends BasicInjectableOptions> {
       this.instance = new this.ref(...dependencies);
     }
 
-    return this.instance;
+    return this.getInstance();
   }
 
   public getDependencies(): Type<any>[] {

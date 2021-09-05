@@ -5,6 +5,6 @@ import { BasicInjectable } from './basic-injectable';
 
 export class Controller extends BasicInjectable<ControllerOptions> {
   constructor(ref: Type<any>) {
-    super(ref, `controller:${ref.name}`, Reflection.getControllerOptions(ref));
+    super(ref, Reflection.getControllerOptions(ref));
   }
 }

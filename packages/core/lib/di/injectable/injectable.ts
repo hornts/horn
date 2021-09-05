@@ -5,6 +5,6 @@ import { BasicInjectable } from './basic-injectable';
 
 export class Injectable extends BasicInjectable<InjectableOptions> {
   constructor(ref: Type<any>) {
-    super(ref, `injectable:${ref.name}`, Reflection.getInjectableOptions(ref));
+    super(ref, Reflection.getInjectableOptions(ref));
   }
 }
