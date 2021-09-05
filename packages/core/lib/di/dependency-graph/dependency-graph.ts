@@ -1,6 +1,7 @@
 import { Type } from '@hornts/common';
-import { DepGraph } from 'dependency-graph';
+import { DepGraph, DepGraphCycleError } from 'dependency-graph';
 
+import { CircularDependencyError } from '../../errors';
 import { Controller, Injectable } from '../injectable';
 import { Module } from '../module';
 import { Node } from './node';
@@ -14,6 +15,22 @@ export class DependencyGraph {
 
   public build(ref: Type<any>) {
     this.loadDependencies(ref);
+  }
+
+  public getNode<T extends Module | Controller | Injectable>(token: string): Node<T> {
+    return this.graph.getNodeData(token);
+  }
+
+  public getLoadOrder(): string[] {
+    try {
+      return this.graph.overallOrder();
+    } catch (error) {
+      if (error instanceof DepGraphCycleError) {
+        throw new CircularDependencyError(error.message);
+      } else {
+        throw error;
+      }
+    }
   }
 
   private loadDependencies(ref: Type<any>) {

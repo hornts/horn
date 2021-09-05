@@ -20,5 +20,12 @@ describe('DependencyGraph', () => {
     const graph = new DependencyGraph();
 
     graph.build(AppModule);
+
+    const order = graph.getLoadOrder();
+
+    expect(order.length).toBe(3);
+    expect(graph.getNode(order[0]).getData().getName()).toBe('ServiceA');
+    expect(graph.getNode(order[1]).getData().getName()).toBe('ModuleA');
+    expect(graph.getNode(order[2]).getData().getName()).toBe('AppModule');
   });
 });
