@@ -28,7 +28,9 @@ export class DependencyGraph {
     this.loadControllers(token, meta);
 
     for (let index = 0; index < meta.imports.length; index++) {
-      this.loadDependencies(meta.imports[index]);
+      if (!this.hasModule(meta.imports[index])) {
+        this.loadDependencies(meta.imports[index]);
+      }
     }
   }
 
@@ -52,5 +54,12 @@ export class DependencyGraph {
       this.graph.addNode(token, new Node(controller));
       this.graph.addDependency(rootToken, token);
     }
+  }
+
+  private hasModule(ref: Type<any>): boolean {
+    const module = new Module(ref);
+    const token = module.getToken();
+
+    return this.graph.hasNode(token);
   }
 }

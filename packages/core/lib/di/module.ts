@@ -1,18 +1,17 @@
-import { ModuleOptions, Type } from '@hornts/common';
-import * as uuid from 'uuid';
+import { DIMeta, ModuleOptions, Type } from '@hornts/common';
 
 import { Reflection } from './reflection';
 
 export class Module {
   private readonly name: string;
 
-  private readonly token: string;
+  private readonly diMeta: DIMeta;
 
   private readonly meta: ModuleOptions;
 
   constructor(private readonly ref: Type<any>) {
     this.name = ref.name;
-    this.token = uuid.v4();
+    this.diMeta = Reflection.getDIMeta(ref);
     this.meta = Reflection.getModuleOptions(ref);
   }
 
@@ -21,7 +20,7 @@ export class Module {
   }
 
   public getToken() {
-    return this.token;
+    return this.diMeta.token;
   }
 
   public getMeta(): ModuleOptions {

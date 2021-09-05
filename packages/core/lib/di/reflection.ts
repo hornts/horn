@@ -1,6 +1,8 @@
 import {
   CONTROLLER_OPTIONS_METADATA,
   ControllerOptions,
+  DI_META,
+  DIMeta,
   INJECTABLE_OPTIONS_METADATA,
   InjectableOptions,
   MODULE_OPTIONS_METADATA,
@@ -13,6 +15,10 @@ import {
  * Sugar over Reflect API.
  */
 export class Reflection {
+  public static getDIMeta<T>(constructor: Type<T>): DIMeta {
+    return Reflect.getOwnMetadata(DI_META, constructor);
+  }
+
   /**
    * Returns module options.
    */
