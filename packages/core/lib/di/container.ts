@@ -22,5 +22,7 @@ export class ApplicationContainer {
     this.logger?.info('Application container started.');
   }
 
-  private instantiateDependencies() {}
+  private instantiateDependencies() {
+    const order = this.graph.getLoadOrder();
+  }
 }
