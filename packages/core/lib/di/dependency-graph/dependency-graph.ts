@@ -17,6 +17,10 @@ export class DependencyGraph {
     this.loadDependencies(ref);
   }
 
+  public getdDirectDependenciesOf(token: string): string[] {
+    return this.graph.directDependenciesOf(token);
+  }
+
   public getNode<T extends Module | Controller | Injectable>(token: string): Node<T> {
     return this.graph.getNodeData(token);
   }
