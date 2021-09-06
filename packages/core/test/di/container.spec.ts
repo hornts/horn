@@ -5,7 +5,23 @@ import { ApplicationContainer } from '../../lib';
 describe('ApplicationContainer', () => {
   it('should create container', () => {
     @Injectable()
-    class ServiceA {}
+    class ServiceC {}
+
+    @Module({
+      injectables: [ServiceC],
+      exports: [ServiceC],
+    })
+    class ModuleB {}
+
+    @Injectable()
+    class ServiceB {
+      constructor(private readonly serviceC: ServiceC) {}
+    }
+
+    @Injectable()
+    class ServiceA {
+      constructor(private readonly serviceB: ServiceB) {}
+    }
 
     @Controller()
     class ControllerA {
@@ -13,8 +29,9 @@ describe('ApplicationContainer', () => {
     }
 
     @Module({
+      imports: [ModuleB],
       controllers: [ControllerA],
-      injectables: [ServiceA],
+      injectables: [ServiceA, ServiceB],
     })
     class ModuleA {}
 

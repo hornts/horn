@@ -1,7 +1,7 @@
 import { LoggerService, Type } from '@hornts/common';
 
 import { DependencyGraph } from './dependency-graph';
-import { BasicInjectable } from './injectable';
+import { Controller, Injectable } from './injectable';
 import { Module } from './module';
 
 export class ApplicationContainer {
@@ -30,9 +30,23 @@ export class ApplicationContainer {
     for (let index = 0; index < order.length; index++) {
       const node = this.graph.getNode(order[index]).getData();
       if (node instanceof Module) {
-        const deps = this.graph.getdDirectDependenciesOf(node.getToken());
-        console.log('name', node.getName());
-        console.log('deps: ', deps);
+        const depsTokens = this.graph.getdDirectDependenciesOf(node.getToken());
+        this.loadDependencies(node, depsTokens);
+        node.instantiate();
+      }
+    }
+  }
+
+  private loadDependencies(module: Module, tokens: string[]) {
+    for (let index = 0; index < tokens.length; index++) {
+      const dependency = this.graph.getNode(tokens[index]).getData();
+
+      if (dependency instanceof Injectable) {
+        module.setInjectable(dependency);
+      } else if (dependency instanceof Controller) {
+        module.setController(dependency);
+      } else if (dependency instanceof Module) {
+        module.setImport(dependency);
       }
     }
   }

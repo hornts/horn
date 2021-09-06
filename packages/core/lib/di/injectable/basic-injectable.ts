@@ -45,4 +45,8 @@ export abstract class BasicInjectable<T extends BasicInjectableOptions> {
   public getInstance(): any {
     return this.instance;
   }
+
+  public getRef(): Type<any> {
+    return this.ref;
+  }
 }

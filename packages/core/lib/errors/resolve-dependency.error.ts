@@ -1,5 +1,7 @@
 export class ResolveDependencyError extends Error {
-  constructor(token: string, instance: string) {
-    super(`Couldn't resolve dependency ${token} for ${instance}.`);
+  constructor(dependency: string, injectable: string, module?: string) {
+    super(
+      `Couldn't resolve dependency ${dependency} for ${module ? `${module}:` : ''}${injectable}.`
+    );
   }
 }
