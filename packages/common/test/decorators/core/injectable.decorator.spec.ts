@@ -7,7 +7,9 @@ describe('@Injectable', () => {
     @Injectable()
     class Test {}
 
-    expect(Reflect.getOwnMetadata('horn:injectable', Test)).toStrictEqual({});
+    expect(Reflect.getOwnMetadata('horn:injectable', Test)).toStrictEqual({
+      scope: Scope.SINGLETON,
+    });
   });
 
   it('should create injectable class with options', () => {
