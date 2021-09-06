@@ -68,6 +68,11 @@ export class Module {
   }
 
   public instantiate() {
+    this.instantiateInjectables();
+    this.instantiateControllers();
+  }
+
+  private instantiateInjectables() {
     // eslint-disable-next-line no-restricted-syntax
     for (const [, injectable] of this.injectables.entries()) {
       const dependencyRefs = injectable.getDependencies();
@@ -104,5 +109,29 @@ export class Module {
     }
 
     return injectable;
+  }
+
+  private instantiateControllers() {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const [, controller] of this.controllers.entries()) {
+      const dependencyRefs = controller.getDependencies();
+      const dependencies = [];
+
+      for (let index = 0; index < dependencyRefs.length; index++) {
+        const dependency = this.findDepenendency(dependencyRefs[index]);
+
+        if (!dependency) {
+          throw new ResolveDependencyError(
+            dependencyRefs[index].name,
+            controller.getName(),
+            this.name
+          );
+        }
+
+        dependencies.push(dependency.getInstance());
+      }
+
+      controller.instantiate(dependencies);
+    }
   }
 }
