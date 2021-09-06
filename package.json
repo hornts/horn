@@ -31,7 +31,7 @@
     "format:check": "nx format:check",
     "release": "release-it",
     "prepublishOnly": "npm run build:all && npm run test:all",
-    "publish": "nx run-many --all --target=publish",
+    "publish": "npm run prepublishOnly && nx run-many --all --target=publish",
     "update": "nx migrate latest",
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
