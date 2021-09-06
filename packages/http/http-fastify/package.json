@@ -1,6 +1,6 @@
 {
   "name": "@hornts/http-fastify",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "Alexey Vasyukov",
   "license": "MIT",
   "engines": {

@@ -1,3 +1,28 @@
+### [0.0.4](https://github.com/hornts/horn/compare/0.0.3...0.0.4) (2021-09-06)
+
+
+### Features
+
+* Generate tokens in decorators ([7e2853f](https://github.com/hornts/horn/commit/7e2853f0a0df41bfc597e234ef150867b2682a4d))
+* get load order ([338706d](https://github.com/hornts/horn/commit/338706d32317d117b15872712a1f4aec1f542689))
+* Updated dep graph ([76a7ab5](https://github.com/hornts/horn/commit/76a7ab5b3238c2d12cbc3e0d15eb513337a421cc))
+* updated instantiating ([5efffc8](https://github.com/hornts/horn/commit/5efffc86964397b3d4203d5a74ff70de12ea625d))
+
+
+### Bug Fixes
+
+* graph build ([ec6cb0d](https://github.com/hornts/horn/commit/ec6cb0dbc165086a1abf12c9431a8334518c304e))
+
+
+### Refactor
+
+* added tests ([fc93a2a](https://github.com/hornts/horn/commit/fc93a2a62429976a02a01361be764b4d4f31f4da))
+
+
+### Documentations
+
+* updated readme ([497fe9f](https://github.com/hornts/horn/commit/497fe9feff6013fc6a757fc2e919402592d13cb9))
+
 ### [0.0.3](https://github.com/hornts/horn/compare/0.0.2...0.0.3) (2021-09-03)
 
 
