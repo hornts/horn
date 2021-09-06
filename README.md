@@ -20,5 +20,9 @@ npm i @hornts/core@latest @hornts/common@latest
 
 To work with **Horn** read [documentation](https://hornts.github.io/horn) first.
 
+## Examples
+
+Watch working examples [here](https://github.com/hornts/horn-examples).
+
 ## License
-**Horn** is under [MIT License](https://github.com/hornts/horn/blob/master/LICENSE) for everyone.
+**Horn** is under [MIT License](https://github.com/hornts/horn/blob/master/LICENSE) for everyone forever.
