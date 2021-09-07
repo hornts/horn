@@ -11,7 +11,7 @@ export abstract class BasicInjectable<T extends BasicInjectableOptions> {
 
   private instance?: any;
 
-  constructor(private readonly ref: Type<any>, private readonly meta: T) {
+  constructor(private readonly ref: Type<any>, protected readonly meta: T) {
     this.name = ref.name;
     this.diMeta = Reflection.getDIMeta(ref);
     this.dependencies = Reflection.getParamTypes(ref);

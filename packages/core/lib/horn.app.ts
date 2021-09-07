@@ -64,6 +64,7 @@ export class HornApplication<T extends HttpAdapter> {
     this.http = options?.http;
 
     this.container.initialise();
+    this.registerControllers();
   }
 
   /**
@@ -81,5 +82,18 @@ export class HornApplication<T extends HttpAdapter> {
    */
   public getHttpInstance(): any {
     return this.http?.getInstance();
+  }
+
+  private registerControllers() {
+    if (this.http) {
+      const controllers = this.container.getControllers();
+      for (let index = 0; index < controllers.length; index++) {
+        this.logger?.info(`HTTP Controller Registered: ${controllers[index].getName()}`);
+        const path = controllers[index].getPath();
+        this.http.get(path, (req, res) => {
+          res.send('test');
+        });
+      }
+    }
   }
 }

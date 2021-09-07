@@ -1,4 +1,4 @@
-import { Controller, Injectable, Module } from '@hornts/common';
+import { Controller, Injectable, Module, Scope } from '@hornts/common';
 
 import { ApplicationContainer } from '../../lib';
 
@@ -23,7 +23,7 @@ describe('ApplicationContainer', () => {
       constructor(private readonly serviceB: ServiceB) {}
     }
 
-    @Controller()
+    @Controller({ path: 'test', scope: Scope.SINGLETON })
     class ControllerA {
       constructor(private readonly serviceA: ServiceA) {}
     }

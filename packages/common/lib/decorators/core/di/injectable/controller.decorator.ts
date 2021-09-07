@@ -8,11 +8,18 @@ import { ControllerOptions, Scope } from '../../../../interfaces';
 /**
  * Controller decorator.
  */
-export function Controller(
-  options: ControllerOptions = { scope: Scope.SINGLETON }
-): ClassDecorator {
+export function Controller(options: ControllerOptions | string): ClassDecorator {
   return (target: any) => {
-    Reflect.defineMetadata(CONTROLLER_OPTIONS_METADATA, options, target);
+    let controllerOptions = options;
+
+    if (typeof options === 'string') {
+      controllerOptions = {
+        scope: Scope.SINGLETON,
+        path: options,
+      };
+    }
+
+    Reflect.defineMetadata(CONTROLLER_OPTIONS_METADATA, controllerOptions, target);
     Reflect.defineMetadata(DI_METADATA, { token: uuid.v4() }, target);
   };
 }

@@ -7,4 +7,8 @@ export class Controller extends BasicInjectable<ControllerOptions> {
   constructor(ref: Type<any>) {
     super(ref, Reflection.getControllerOptions(ref));
   }
+
+  public getPath(): string {
+    return this.meta.path;
+  }
 }

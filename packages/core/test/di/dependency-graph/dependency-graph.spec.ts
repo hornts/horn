@@ -7,9 +7,9 @@ describe('DependencyGraph', () => {
     @Injectable()
     class ServiceA {}
 
-    @Controller()
+    @Controller('test')
     class ControllerA {
-      constructor(serviceA: ServiceA) {}
+      constructor(private readonly serviceA: ServiceA) {}
     }
 
     @Module({

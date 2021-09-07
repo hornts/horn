@@ -7,6 +7,8 @@ import { Module } from './module';
 export class ApplicationContainer {
   private readonly graph: DependencyGraph;
 
+  private readonly controllers: Controller[] = [];
+
   constructor(private readonly rootModuleRef: Type<any>, private readonly logger?: LoggerService) {
     this.graph = new DependencyGraph();
   }
@@ -22,6 +24,10 @@ export class ApplicationContainer {
     this.instantiateDependencies();
 
     this.logger?.info('Application container started.');
+  }
+
+  public getControllers(): Controller[] {
+    return this.controllers;
   }
 
   private instantiateDependencies() {
@@ -45,6 +51,7 @@ export class ApplicationContainer {
         module.setInjectable(dependency);
       } else if (dependency instanceof Controller) {
         module.setController(dependency);
+        this.controllers.push(dependency);
       } else if (dependency instanceof Module) {
         module.setImport(dependency);
       }
