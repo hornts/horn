@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import { Controller, Scope } from '../../../lib';
+import { Controller, Scope } from '../../../../lib';
 
 describe('@Controller', () => {
   it('should create injectable class with path string', () => {

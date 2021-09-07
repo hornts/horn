@@ -22,8 +22,6 @@ export class ApplicationContainer {
 
     this.logger?.info('Instantiating dependencies...');
     this.instantiateDependencies();
-
-    this.logger?.info('Application container started.');
   }
 
   public getControllers(): Controller[] {
