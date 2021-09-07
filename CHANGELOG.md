@@ -1,3 +1,16 @@
+### [0.0.5](https://github.com/hornts/horn/compare/0.0.4...0.0.5) (2021-09-07)
+
+
+### Features
+
+* init http decorators ([2737f24](https://github.com/hornts/horn/commit/2737f2466bc23b6310159ff2a47aed89b482e3f0))
+* initial load controllers ([8597a55](https://github.com/hornts/horn/commit/8597a55853edb1e819c15ed0165dffba69464b75))
+
+
+### Bug Fixes
+
+* fixed tests ([b491c34](https://github.com/hornts/horn/commit/b491c34c8ee1e07ef33e57e253c987bfb488239d))
+
 ### [0.0.4](https://github.com/hornts/horn/compare/0.0.3...0.0.4) (2021-09-06)
 
 
