@@ -1,7 +1,7 @@
 import {
   CONTROLLER_OPTIONS_METADATA,
   ControllerOptions,
-  DI_META,
+  DI_METADATA,
   DIMeta,
   INJECTABLE_OPTIONS_METADATA,
   InjectableOptions,
@@ -16,7 +16,7 @@ import {
  */
 export class Reflection {
   public static getDIMeta<T>(constructor: Type<T>): DIMeta {
-    return Reflect.getOwnMetadata(DI_META, constructor);
+    return Reflect.getOwnMetadata(DI_METADATA, constructor);
   }
 
   /**

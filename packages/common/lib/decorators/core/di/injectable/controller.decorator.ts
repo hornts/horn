@@ -2,7 +2,7 @@ import 'reflect-metadata';
 
 import * as uuid from 'uuid';
 
-import { CONTROLLER_OPTIONS_METADATA, DI_META } from '../../../../constants';
+import { CONTROLLER_OPTIONS_METADATA, DI_METADATA } from '../../../../constants';
 import { ControllerOptions, Scope } from '../../../../interfaces';
 
 /**
@@ -13,6 +13,6 @@ export function Controller(
 ): ClassDecorator {
   return (target: any) => {
     Reflect.defineMetadata(CONTROLLER_OPTIONS_METADATA, options, target);
-    Reflect.defineMetadata(DI_META, { token: uuid.v4() }, target);
+    Reflect.defineMetadata(DI_METADATA, { token: uuid.v4() }, target);
   };
 }
