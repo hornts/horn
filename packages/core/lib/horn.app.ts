@@ -88,11 +88,14 @@ export class HornApplication<T extends HttpAdapter> {
     if (this.http) {
       const controllers = this.container.getControllers();
       for (let index = 0; index < controllers.length; index++) {
-        this.logger?.info(`HTTP Controller Registered: ${controllers[index].getName()}`);
         const path = controllers[index].getPath();
+
+        // TODO: load methods correctly
         this.http.get(path, (req, res) => {
           res.send('test');
         });
+
+        this.logger?.info(`[HTTP Controller] ${controllers[index].getName()} registered.`);
       }
     }
   }
