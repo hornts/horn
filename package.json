@@ -63,7 +63,7 @@
     "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-simple-import-sort": "7.0.0",
     "husky": "7.0.2",
-    "jest": "27.1.0",
+    "jest": "27.1.1",
     "prettier": "2.3.2",
     "release-it": "14.11.5",
     "ts-jest": "27.0.5",
@@ -76,7 +76,7 @@
     "express": "4.17.1",
     "fastify": "3.21.0",
     "pino": "6.13.2",
-    "pino-pretty": "6.0.0",
+    "pino-pretty": "7.0.0",
     "reflect-metadata": "0.1.13",
     "uuid": "8.3.2"
   }
