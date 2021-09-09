@@ -1,8 +1,10 @@
 import {
+  CONTROLLER_METHOD_METADATA,
   CONTROLLER_OPTIONS_METADATA,
   ControllerOptions,
   DI_METADATA,
   DIMeta,
+  HTTPMethodOptions,
   INJECTABLE_OPTIONS_METADATA,
   InjectableOptions,
   MODULE_OPTIONS_METADATA,
@@ -15,6 +17,9 @@ import {
  * Sugar over Reflect API.
  */
 export class Reflection {
+  /**
+   * Returns basic DI metadata
+   */
   public static getDIMeta<T>(constructor: Type<T>): DIMeta {
     return Reflect.getOwnMetadata(DI_METADATA, constructor);
   }
@@ -56,6 +61,10 @@ export class Reflection {
       scope: Scope.SINGLETON,
       ...meta,
     };
+  }
+
+  public static getControllerHTTPMethodOptions(method: () => void): HTTPMethodOptions {
+    return Reflect.getOwnMetadata(CONTROLLER_METHOD_METADATA, method);
   }
 
   /**
