@@ -1,4 +1,4 @@
-import * as pino from 'pino';
+import pino from 'pino';
 
 export interface LoggerService {
   child(...args: any[]): LoggerService;

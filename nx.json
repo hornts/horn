@@ -14,31 +14,15 @@
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ]
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
       }
-    }
-  },
-  "projects": {
-    "core": {
-      "tags": ["scope:core", "type:library"]
-    },
-    "common": {
-      "tags": ["scope:common", "type:library"]
-    },
-    "http-express": {
-      "tags": ["scope:http-express", "type:plugin"]
-    },
-    "http-fastify": {
-      "tags": ["scope:http-fastify", "type:plugin"]
     }
   },
   "workspaceLayout": {
     "appsDir": "packages",
     "libsDir": "packages"
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/workspace"
   }
 }

@@ -1,19 +1,71 @@
 {
   "version": 2,
   "projects": {
+    "common": {
+      "root": "packages/common",
+      "sourceRoot": "packages/common/lib",
+      "projectType": "library",
+      "tags": ["scope:common", "type:library"],
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/common/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "options": {
+            "codeCoverage": false,
+            "jestConfig": "packages/common/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "coverage": {
+          "executor": "@nrwl/jest:jest",
+          "options": {
+            "codeCoverage": true,
+            "coverageReporters": ["json-summary", "text", "html"],
+            "jestConfig": "packages/common/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/packages/common"]
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packages/common",
+            "tsConfig": "packages/common/tsconfig.lib.json",
+            "packageJson": "packages/common/package.json",
+            "main": "packages/common/lib/index.ts",
+            "assets": ["packages/common/*.md"],
+            "buildableProjectDepsInPackageJsonType": "peerDependencies"
+          },
+          "outputs": ["{options.outputPath}"]
+        },
+        "publish": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "npm publish",
+            "cwd": "dist/packages/common"
+          }
+        }
+      }
+    },
     "core": {
       "root": "packages/core",
       "sourceRoot": "packages/core/lib",
       "projectType": "library",
+      "tags": ["scope:core", "type:library"],
       "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["packages/core/**/*.ts"]
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "codeCoverage": false,
             "jestConfig": "packages/core/jest.config.js",
@@ -21,7 +73,7 @@
           }
         },
         "coverage": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "codeCoverage": true,
             "coverageReporters": ["json-summary", "text", "html"],
@@ -31,7 +83,7 @@
           "outputs": ["coverage/packages/core"]
         },
         "build": {
-          "builder": "@nrwl/node:package",
+          "executor": "@nrwl/node:package",
           "options": {
             "outputPath": "dist/packages/core",
             "tsConfig": "packages/core/tsconfig.lib.json",
@@ -49,60 +101,10 @@
           ]
         },
         "publish": {
-          "builder": "@nrwl/workspace:run-commands",
+          "executor": "@nrwl/workspace:run-commands",
           "options": {
             "command": "npm publish",
             "cwd": "dist/packages/core"
-          }
-        }
-      }
-    },
-    "common": {
-      "root": "packages/common",
-      "sourceRoot": "packages/common/lib",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/common/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "codeCoverage": false,
-            "jestConfig": "packages/common/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "coverage": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "codeCoverage": true,
-            "coverageReporters": ["json-summary", "text", "html"],
-            "jestConfig": "packages/common/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/packages/common"]
-        },
-        "build": {
-          "builder": "@nrwl/node:package",
-          "options": {
-            "outputPath": "dist/packages/common",
-            "tsConfig": "packages/common/tsconfig.lib.json",
-            "packageJson": "packages/common/package.json",
-            "main": "packages/common/lib/index.ts",
-            "assets": ["packages/common/*.md"],
-            "buildableProjectDepsInPackageJsonType": "peerDependencies"
-          },
-          "outputs": ["{options.outputPath}"]
-        },
-        "publish": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "command": "npm publish",
-            "cwd": "dist/packages/common"
           }
         }
       }
@@ -111,15 +113,16 @@
       "root": "packages/http/http-express",
       "sourceRoot": "packages/http/http-express/lib",
       "projectType": "library",
+      "tags": ["scope:http-express", "type:plugin"],
       "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["packages/http/http-express/**/*.ts"]
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "codeCoverage": false,
             "jestConfig": "packages/http/http-express/jest.config.js",
@@ -127,7 +130,7 @@
           }
         },
         "coverage": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "codeCoverage": true,
             "coverageReporters": ["json-summary", "text", "html"],
@@ -137,7 +140,7 @@
           "outputs": ["coverage/packages/http/http-express"]
         },
         "build": {
-          "builder": "@nrwl/node:package",
+          "executor": "@nrwl/node:package",
           "options": {
             "outputPath": "dist/packages/http/http-express",
             "tsConfig": "packages/http/http-express/tsconfig.lib.json",
@@ -155,7 +158,7 @@
           ]
         },
         "publish": {
-          "builder": "@nrwl/workspace:run-commands",
+          "executor": "@nrwl/workspace:run-commands",
           "options": {
             "command": "npm publish",
             "cwd": "dist/packages/http/http-express"
@@ -167,15 +170,16 @@
       "root": "packages/http/http-fastify",
       "sourceRoot": "packages/http/http-fastify/lib",
       "projectType": "library",
+      "tags": ["scope:http-fastify", "type:plugin"],
       "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["packages/http/http-fastify/**/*.ts"]
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "codeCoverage": false,
             "jestConfig": "packages/http/http-fastify/jest.config.js",
@@ -183,7 +187,7 @@
           }
         },
         "coverage": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "codeCoverage": true,
             "coverageReporters": ["json-summary", "text", "html"],
@@ -193,7 +197,7 @@
           "outputs": ["coverage/packages/http/http-fastify"]
         },
         "build": {
-          "builder": "@nrwl/node:package",
+          "executor": "@nrwl/node:package",
           "options": {
             "outputPath": "dist/packages/http/http-fastify",
             "tsConfig": "packages/http/http-fastify/tsconfig.lib.json",
@@ -211,7 +215,7 @@
           ]
         },
         "publish": {
-          "builder": "@nrwl/workspace:run-commands",
+          "executor": "@nrwl/workspace:run-commands",
           "options": {
             "command": "npm publish",
             "cwd": "dist/packages/http/http-fastify"
@@ -219,8 +223,5 @@
         }
       }
     }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/workspace"
   }
 }
