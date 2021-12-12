@@ -8,13 +8,13 @@ export interface HornOptions<T extends HttpAdapter> {
    * Logger instance used by Horn.
    * @default true
    *
-   * @example <caption>You can pass your custom logger:</caption>
+   * @example <caption>Setting up custom logger:</caption>
    * import { LoggerService } from '@hornts/common';
    *
    * class CustomLogger implements LoggerService { ... }
    * logger: new CustomLogger()
    *
-   * @example <caption>You can disable logger for Horn:</caption>
+   * @example <caption>Disabling logger for Horn:</caption>
    * logger: false
    */
   logger?: boolean | Logger;
@@ -22,19 +22,19 @@ export interface HornOptions<T extends HttpAdapter> {
   /**
    * HTTP adapter used by Horn.
    *
-   * @example <caption>You can pass your custom HTTP adapter:</caption>
-   * import { HttpAdapter } from '@hornts/core';
-   *
-   * class CustomAdapter extends HttpAdapter { ... };
-   *
-   * http: new CustomAdapter();
-   *
-   * @example <caption>You can pass official HTTP adapters:</caption>
+   * @example <caption>Using official HTTP adapters:</caption>
    * import { ExpressAdapter } from '@hornts/http-express';
    * import { FastifyAdapter } from '@hornts/http-fastify';
    *
    * http: new ExpressAdapter();
    * http: new FastifyAdapter();
+   *
+   * @example <caption>Setting up custom HTTP adapter:</caption>
+   * import { HttpAdapter } from '@hornts/core';
+   *
+   * class CustomAdapter extends HttpAdapter { ... };
+   *
+   * http: new CustomAdapter();
    */
   http?: T;
 }
