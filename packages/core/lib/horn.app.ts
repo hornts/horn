@@ -73,7 +73,7 @@ export class HornApplication<T extends HttpAdapter> {
   public async listen(port: number, ...args: any[]) {
     if (this.http) {
       await this.http.listen(port, ...args);
-      this.logger?.info(`Starts listening on port ${port}.`);
+      this.logger?.info(`Starts listening on port ${port}...`);
     }
   }
 
