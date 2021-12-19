@@ -45,3 +45,20 @@ export class Logger implements LoggerService {
     this.pino.trace(message);
   }
 }
+
+export class LoggerFactory {
+  /**
+   * Logger factory creates Logger instance.
+   * @returns {Logger}
+   */
+  public static create(): Logger {
+    return new Logger({
+      name: 'Horn',
+      prettyPrint: {
+        colorize: true,
+        ignore: 'pid,hostname',
+        translateTime: true,
+      },
+    });
+  }
+}

@@ -1,4 +1,4 @@
-import { Logger, Type } from '@hornts/common';
+import { Logger, LoggerFactory, Type } from '@hornts/common';
 
 import { ApplicationContainer } from './di';
 import { HttpAdapter } from './http';
@@ -50,14 +50,7 @@ export class HornApplication<T extends HttpAdapter> {
     if (options?.logger instanceof Logger) {
       this.logger = options.logger;
     } else if (options?.logger !== false) {
-      this.logger = new Logger({
-        name: 'Horn',
-        prettyPrint: {
-          colorize: true,
-          ignore: 'pid,hostname',
-          translateTime: true,
-        },
-      });
+      this.logger = LoggerFactory.create();
     }
 
     this.container = new ApplicationContainer(rootModule, this.logger);
