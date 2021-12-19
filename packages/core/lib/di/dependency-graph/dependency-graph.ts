@@ -7,7 +7,7 @@ import { Module } from '../module';
 import { Node, NodeType } from './node';
 
 export class DependencyGraph {
-  private readonly graph: DepGraph<Node<any>>;
+  private readonly graph: DepGraph<Node<NodeType>>;
 
   constructor() {
     this.graph = new DepGraph<Node<NodeType>>();
@@ -21,7 +21,7 @@ export class DependencyGraph {
     return this.graph.directDependenciesOf(token);
   }
 
-  public getNode<T extends Module | Controller | Injectable>(token: string): Node<T> {
+  public getNode(token: string): Node<NodeType> {
     return this.graph.getNodeData(token);
   }
 
