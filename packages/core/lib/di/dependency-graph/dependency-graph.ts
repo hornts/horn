@@ -4,13 +4,13 @@ import { DepGraph, DepGraphCycleError } from 'dependency-graph';
 import { CircularDependencyError } from '../../errors';
 import { Controller, Injectable } from '../injectable';
 import { Module } from '../module';
-import { Node } from './node';
+import { Node, NodeTypes } from './node';
 
 export class DependencyGraph {
   private readonly graph: DepGraph<Node<any>>;
 
   constructor() {
-    this.graph = new DepGraph<Node<any>>();
+    this.graph = new DepGraph<Node<NodeTypes>>();
   }
 
   public build(ref: Type<any>) {
