@@ -1,12 +1,12 @@
 import { Controller, Injectable } from '../injectable';
 import { Module } from '../module';
 
-export type NodeTypes = Module | Controller | Injectable;
+export type NodeType = Module | Controller | Injectable;
 
 /**
  * Represents dependency graph node.
  */
-export class Node<T extends NodeTypes> {
+export class Node<T extends NodeType> {
   constructor(private readonly data: T) {}
 
   public getData(): T {
